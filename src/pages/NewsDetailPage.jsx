@@ -1,7 +1,7 @@
 const NewsDetailPage = () => {
   return (
     <>
-      <div className="font-extrabold font-[#BC56F3]">NewsDetailPage 입니다.</div>
+      <div className="font-extrabold text-[#BC56F3]">NewsDetailPage 입니다.</div>
     </>
   );
 };

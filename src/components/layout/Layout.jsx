@@ -1,12 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import Header from '@/components/layout/Header';
+import { Outlet } from 'react-router-dom';
 
-const Layout = ({ children }) => {
-  return <div className="font-nanum">{children}</div>;
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+const Layout = () => {
+  return (
+    <div className="min-h-screen w-full flex flex-col items-center">
+      <div className="relative flex flex-col min-w-[360px] w-full max-w-[440px]">
+        <Header />
+        <main className="w-full min-h-[calc(100vh-56px)]">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default Layout;

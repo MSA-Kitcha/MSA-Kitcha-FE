@@ -1,7 +1,11 @@
 const LoginPage = () => {
   return (
     <>
-      <div className="font-extrabold font-[#BC56F3]">LoginPage 입니다.</div>
+      <div className="min-h-screen w-full flex flex-col items-center">
+        <div className="min-h-[100vh] relative flex flex-col min-w-[360px] w-full max-w-[440px] bg-amber-200">
+          로그인페이지
+        </div>
+      </div>
     </>
   );
 };

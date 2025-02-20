@@ -17,9 +17,9 @@ import NotFoundPage from '@/pages/NotFoundPage';
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route element={<Layout />}>
           <Route path="/join" element={<JoinPage />} />
           <Route path="/mypick" element={<MyPickPage />} />
           <Route path="/home" element={<HomePage />} />
@@ -32,8 +32,8 @@ function App() {
           <Route path="/board/:boardId" element={<BoardDetailPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Layout>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
