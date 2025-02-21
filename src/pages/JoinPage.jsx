@@ -167,7 +167,6 @@ const JoinPage = () => {
                 {passwordError}
               </p>
             )}
-            {/* 🔥 에러 메시지 */}
           </div>
 
           {/* Login */}
