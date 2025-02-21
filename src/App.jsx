@@ -19,6 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route element={<Layout />}>
           <Route path="/join" element={<JoinPage />} />
           <Route path="/mypick" element={<MyPickPage />} />
@@ -31,7 +32,6 @@ function App() {
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/board/:boardId" element={<BoardDetailPage />} />
           <Route path="/board/write" element={<WritePage />} />
-          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -3,10 +3,10 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center">
+    <div className="min-h-screen w-full flex flex-col items-center bg-gray-100">
       <div className="relative flex flex-col min-w-[360px] w-full max-w-[440px]">
         <Header />
-        <main className="w-full min-h-[calc(100vh-56px)]">
+        <main className="font-nanum tracking-[-0.4px] w-full mt-[54px] min-h-[calc(100vh-54px)] bg-white">
           <Outlet />
         </main>
       </div>
