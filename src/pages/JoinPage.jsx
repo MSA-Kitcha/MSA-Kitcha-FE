@@ -19,14 +19,6 @@ const JoinPage = () => {
 
   const dummyEmails = ['test@naver.com']; // 더미 이메일
 
-  // 로그인 버튼 활성화 여부
-  const isLoginEnabled =
-    nickname.trim() !== '' &&
-    isValidEmail(email) &&
-    isEmailValid &&
-    password.trim() !== '' &&
-    password === confirmPassword;
-
   // 이메일 정규식
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -82,6 +74,14 @@ const JoinPage = () => {
       setPasswordError('');
     }
   };
+
+  // 로그인 버튼 활성화 여부
+  const isLoginEnabled =
+    nickname.trim() !== '' &&
+    isValidEmail(email) &&
+    isEmailValid &&
+    password.trim() !== '' &&
+    password === confirmPassword;
 
   return (
     <>
