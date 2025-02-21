@@ -75,8 +75,8 @@ const JoinPage = () => {
     }
   };
 
-  // 로그인 버튼 활성화 여부
-  const isLoginEnabled =
+  // 다음 버튼 활성화 여부
+  const isNextBtnEnabled =
     nickname.trim() !== '' &&
     isValidEmail(email) &&
     isEmailValid &&
@@ -169,13 +169,13 @@ const JoinPage = () => {
             )}
           </div>
 
-          {/* Login */}
+          {/* 다음 */}
           <div className="w-full flex justify-center">
             <button
-              disabled={!isLoginEnabled}
+              disabled={!isNextBtnEnabled}
               onClick={() => nav('/mypick')}
               className={`${
-                isLoginEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
+                isNextBtnEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
               } mt-[78px] justify-center transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[100px] h-[54px] rounded-[50px]`}
             >
               <span className="text-white font-[400] text-[20px]">다음</span>
