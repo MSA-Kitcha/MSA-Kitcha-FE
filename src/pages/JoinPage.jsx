@@ -4,12 +4,14 @@ import InputField from '@/components/ui/InputField';
 
 const JoinPage = () => {
   const [nickname, setNickname] = useState('');
+  const [nicknameAlert, setNicknameAlert] = useState('');
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailAlert, setEmailAlert] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [emailAlert, setEmailAlert] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(false);
 
   const nicknameRef = useRef(null);
   const emailRef = useRef(null);
@@ -17,7 +19,29 @@ const JoinPage = () => {
   const confirmPasswordRef = useRef(null);
   const nav = useNavigate();
 
-  const dummyEmails = ['test@naver.com']; // 더미 이메일
+  const dummyNickname = ['테스트']; // 더미 닉네임
+  const dummyEmail = ['test@naver.com']; // 더미 이메일
+
+  // 닉네임 input 핸들러
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+    setIsNicknameValid(false);
+    setNicknameAlert('');
+  };
+
+  // 닉네임 중복 확인 (더미 데이터)
+  const checkNicknameDuplicate = async () => {
+    setNicknameAlert('');
+
+    if (dummyNickname.includes(nickname)) {
+      setNicknameAlert('닉네임이 중복되었습니다.');
+      setNickname('');
+      setIsNicknameValid(false);
+    } else {
+      setNicknameAlert('사용할 수 있는 닉네임입니다.');
+      setIsNicknameValid(true);
+    }
+  };
 
   // 이메일 정규식
   const isValidEmail = (email) => {
@@ -41,7 +65,7 @@ const JoinPage = () => {
 
     setEmailAlert('');
 
-    if (dummyEmails.includes(email)) {
+    if (dummyEmail.includes(email)) {
       setEmailAlert('이메일이 중복되었습니다.');
       setEmail('');
       setIsEmailValid(false);
@@ -57,7 +81,7 @@ const JoinPage = () => {
     setPassword(value);
 
     if (confirmPassword && confirmPassword !== value) {
-      setPasswordError('비밀번호가 다릅니다.');
+      setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError('');
     }
@@ -69,7 +93,7 @@ const JoinPage = () => {
     setConfirmPassword(value);
 
     if (password !== value) {
-      setPasswordError('비밀번호가 다릅니다.');
+      setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError('');
     }
@@ -104,15 +128,34 @@ const JoinPage = () => {
         </p>
 
         {/* 닉네임 */}
-        <div className="mt-[73px]">
-          <InputField
-            placeholder="닉네임을 입력해주세요"
-            ref={nicknameRef}
-            label="닉네임"
-            type="text"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
+        <div>
+          <div className="relative mt-[73px]">
+            <InputField
+              placeholder="닉네임을 입력해주세요"
+              ref={nicknameRef}
+              label="닉네임"
+              type="text"
+              value={nickname}
+              onChange={handleNicknameChange}
+            />
+            <button
+              onClick={checkNicknameDuplicate}
+              className={`${
+                isNicknameValid ? 'bg-[#F1D8FF]' : 'bg-white'
+              } transition duration-300 cursor-pointer absolute bottom-[5px] right-0 w-[39px] h-[25px] shadow-[inset_0_0_0_1px_#1b1b1b] rounded-[20px] text-[12px]`}
+            >
+              확인
+            </button>
+            {nicknameAlert && (
+              <p
+                className={`absolute text-[10px] bottom-[-18px] left-[7px] ${
+                  isNicknameValid ? 'text-[#BC56F3]' : 'text-[#FF4E4E]'
+                }`}
+              >
+                {nicknameAlert}
+              </p>
+            )}
+          </div>
           {/* Email */}
           <div className="relative mt-[46px]">
             <InputField
