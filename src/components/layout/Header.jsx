@@ -7,7 +7,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div className="w-full h-[54px] bg-white fixed top-0 flex items-center">
+    <div className="min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center">
       <div className="flex ml-4 items-center">
         {location.pathname !== '/home' && (
           <img

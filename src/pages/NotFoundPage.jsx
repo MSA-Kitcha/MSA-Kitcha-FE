@@ -5,8 +5,8 @@ const NotFoundPage = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full flex flex-col items-center">
-        <div className="min-h-[100vh] relative flex flex-col justify-center min-w-[360px] w-full max-w-[440px] bg-gray-100">
+      <div className="min-h-screen w-full flex flex-col items-center bg-gray-100">
+        <div className="min-h-[100vh] relative flex flex-col justify-center min-w-[360px] w-full max-w-[440px] bg-gray-200">
           <div className="flex flex-col justify-center items-center">
             <div className="font-extrabold text-[#282828] text-[40px]">404 Not Found</div>
             <span className="font-nanum">없는 페이지입니다.</span>
