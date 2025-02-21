@@ -1,54 +1,16 @@
-import summary from '@/assets/webps/news/summary.webp';
 import { useNavigate } from 'react-router-dom';
+import newsData from '@/constants/newslist/newsData';
+import summary from '@/assets/svgs/common/summary.svg';
 
 const NewsListPage = () => {
-
   const nav = useNavigate();
-
-  const newsData = [
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-    {
-      board_title: '아이폰SE는 아이폰SE로 불리지 않을 것으로 보인다[글로벌IT슈]',
-      long_summary: '아이폰SE는 새로운 이름(아이폰 16E 등)으로 출시할 예정이다',
-      board_date: '2025.02.18',
-    },
-  ];
 
   return (
     <div className="p-8 space-y-4 bg-[white]">
       {newsData.map((news, index) => (
         <div
           key={index}
-          className="shadow-md rounded-2xl py-3 px-6 border border-gray-200"
+          className="shadow-md rounded-2xl py-3 px-6 border border-gray-200 cursor-pointer"
           onClick={() => nav(`/news/${index}`)}
         >
           <h2 className="text-base font-medium">{news.board_title}</h2>
