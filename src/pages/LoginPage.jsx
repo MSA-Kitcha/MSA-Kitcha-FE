@@ -15,6 +15,12 @@ const LoginPage = () => {
   const passwordRef = useRef(null);
   const nav = useNavigate();
 
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+  
+  const isLoginEnabled = isValidEmail(email) && password.trim() !== '';
+
   return (
     <>
       <div className="relative bg-gray-100 min-h-screen w-full flex flex-col items-center">
@@ -39,6 +45,7 @@ const LoginPage = () => {
             <div className="w-full px-[45px] mt-[96px]">
               {/* Email */}
               <InputField
+                placeholder="이메일을 입력해주세요"
                 ref={emailRef}
                 label="Email"
                 type="email"
@@ -48,6 +55,7 @@ const LoginPage = () => {
               {/* PW */}
               <div className="mt-[46px]">
                 <InputField
+                  placeholder="비밀번호를 입력해주세요"
                   ref={passwordRef}
                   label="PW"
                   type="password"
@@ -71,13 +79,16 @@ const LoginPage = () => {
                   </p>
                 </div>
                 {/* Login */}
-                <div
+                <button
+                  disabled={!isLoginEnabled}
                   onClick={() => nav('/home')}
-                  className="z-[10] flex items-center w-[124px] h-[54px] rounded-[50px] bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] cursor-pointer"
+                  className={`${
+                    isLoginEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
+                  } transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[124px] h-[54px] rounded-[50px]`}
                 >
                   <span className="text-white font-[400] text-[20px] ml-5">Login</span>
                   <img className="ml-[5px] w-6 h-6" src={rightArrowWhite} alt="right arrow" />
-                </div>
+                </button>
               </div>
             </div>
             {/* balls */}
