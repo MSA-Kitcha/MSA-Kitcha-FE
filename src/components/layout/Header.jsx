@@ -10,9 +10,7 @@ const Header = () => {
 
   return (
     <div
-      className={`min-w-[360px] max-w-[440px] w-full h-[54px] ${
-        isNewsList ? 'bg-transparent' : 'bg-white'
-      } fixed top-0 flex items-center`}
+      className={`min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center`}
     >
       <div className="flex ml-4 items-center">
         {!isHome && (
