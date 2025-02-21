@@ -1,12 +1,21 @@
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import kitcha from '@/assets/webps/login/kitcha.webp';
 import ball1 from '@/assets/webps/login/ball1.webp';
 import ball2 from '@/assets/webps/login/ball2.webp';
 import rightArrowBlack from '@/assets/webps/login/rightArrowBlack.webp';
 import rightArrowWhite from '@/assets/webps/common/rightArrowWhite.webp';
 import balls from '@/assets/webps/login/balls.webp';
-import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
   const nav = useNavigate();
 
   return (
@@ -36,22 +45,40 @@ const LoginPage = () => {
                 <div>
                   <span className="text-[16px] ml-[7px] text-[#1b1b1b]">Email</span>
                   <input
-                    value="kitcha@naver.com"
+                    type="email"
+                    ref={emailRef}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onFocus={() => setIsEmailFocused(true)}
+                    onBlur={() => setIsEmailFocused(false)}
                     className="text-[14px] w-[calc(100%-120px)] ml-8 text-[#535353] outline-none"
                   />
                 </div>
-                <div className="bg-[#1b1b1b] h-[1px] mt-2" />
+                <div
+                  className={`h-[1px] w-full transition-colors duration-300 ${
+                    isEmailFocused ? 'bg-[#BC56F3]' : 'bg-[#1b1b1b]'
+                  }`}
+                />
               </div>
               {/* PW */}
               <div className="mt-[46px]">
                 <div>
                   <span className="text-[16px] ml-[7px] text-[#1b1b1b]">PW</span>
                   <input
-                    value="⦁⦁⦁⦁⦁⦁⦁⦁"
+                    type="password"
+                    value={password}
+                    ref={passwordRef}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onFocus={() => setIsPasswordFocused(true)}
+                    onBlur={() => setIsPasswordFocused(false)}
                     className="text-[14px] w-[calc(100%-120px)] ml-[46px] text-[#535353] outline-none"
                   />
                 </div>
-                <div className="bg-[#BC56F3] h-[1px] mt-2" />
+                <div
+                  className={`h-[1px] w-full transition-colors duration-300 ${
+                    isPasswordFocused ? 'bg-[#BC56F3]' : 'bg-[#1b1b1b]'
+                  }`}
+                />
               </div>
               {/* Join & Login */}
               <div className="mt-[47px] flex justify-between">
