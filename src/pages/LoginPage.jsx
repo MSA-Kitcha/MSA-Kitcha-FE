@@ -6,16 +6,13 @@ import ball2 from '@/assets/webps/login/ball2.webp';
 import rightArrowBlack from '@/assets/webps/login/rightArrowBlack.webp';
 import rightArrowWhite from '@/assets/webps/common/rightArrowWhite.webp';
 import balls from '@/assets/webps/login/balls.webp';
+import InputField from '@/components/ui/InputField';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
   const nav = useNavigate();
 
   return (
@@ -41,43 +38,21 @@ const LoginPage = () => {
 
             <div className="w-full px-[45px] mt-[96px]">
               {/* Email */}
-              <div>
-                <div>
-                  <span className="text-[16px] ml-[7px] text-[#1b1b1b]">Email</span>
-                  <input
-                    type="email"
-                    ref={emailRef}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onFocus={() => setIsEmailFocused(true)}
-                    onBlur={() => setIsEmailFocused(false)}
-                    className="text-[14px] w-[calc(100%-120px)] ml-8 text-[#535353] outline-none"
-                  />
-                </div>
-                <div
-                  className={`h-[1px] w-full transition-colors duration-300 ${
-                    isEmailFocused ? 'bg-[#BC56F3]' : 'bg-[#1b1b1b]'
-                  }`}
-                />
-              </div>
+              <InputField
+                ref={emailRef}
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               {/* PW */}
               <div className="mt-[46px]">
-                <div>
-                  <span className="text-[16px] ml-[7px] text-[#1b1b1b]">PW</span>
-                  <input
-                    type="password"
-                    value={password}
-                    ref={passwordRef}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onFocus={() => setIsPasswordFocused(true)}
-                    onBlur={() => setIsPasswordFocused(false)}
-                    className="text-[14px] w-[calc(100%-120px)] ml-[46px] text-[#535353] outline-none"
-                  />
-                </div>
-                <div
-                  className={`h-[1px] w-full transition-colors duration-300 ${
-                    isPasswordFocused ? 'bg-[#BC56F3]' : 'bg-[#1b1b1b]'
-                  }`}
+                <InputField
+                  ref={passwordRef}
+                  label="PW"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               {/* Join & Login */}
