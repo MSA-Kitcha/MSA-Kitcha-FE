@@ -1,6 +1,6 @@
 import { useState, forwardRef } from 'react';
 
-const InputField = forwardRef(({ label, type, value, onChange }, ref) => {
+const InputField = forwardRef(({ placeholder, label, type, value, onChange }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -8,6 +8,7 @@ const InputField = forwardRef(({ label, type, value, onChange }, ref) => {
       <div className="relative flex items-center">
         <span className="text-[16px] ml-[7px] text-[#1b1b1b] whitespace-nowrap">{label}</span>
         <input
+          placeholder={placeholder}
           ref={ref}
           type={type}
           value={value}
