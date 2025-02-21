@@ -11,8 +11,8 @@ const MyPickPage = () => {
     <>
       <div className="flex justify-center">
         <div className="w-[28px] flex gap-3">
-          <div className="w-2 h-2 rounded-full bg-[#BC56F3]" />
           <div className="w-2 h-2 rounded-full bg-[#D9D9D9]" />
+          <div className="w-2 h-2 rounded-full bg-[#BC56F3]" />
         </div>
       </div>
       <div className="relative px-[45px] mt-5 z-10">
