@@ -6,7 +6,6 @@ const Header = () => {
   const nav = useNavigate();
   const location = useLocation();
   const isHome = location.pathname == '/home';
-  const isNewsList = location.pathname == '/news';
 
   return (
     <div
