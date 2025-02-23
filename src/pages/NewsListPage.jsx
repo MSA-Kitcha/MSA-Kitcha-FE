@@ -10,8 +10,8 @@ const NewsListPage = () => {
       {newsData.map((news, index) => (
         <div
           key={index}
-          className="shadow-md rounded-2xl py-3 px-6 border border-gray-200 cursor-pointer"
-          onClick={() => nav(`/news/${index}`, {state: news})}
+          className="transition duration-300 hover:bg-linear-[180deg,#FDF8FF_97%,#E6E6E6_100%] bg-linear-[180deg,#FFFFFF_97%,#E6E6E6_100%] shadow-md rounded-2xl py-3 px-6 border border-gray-200 cursor-pointer"
+          onClick={() => nav(`/news/${index}`, { state: news })}
         >
           <h2 className="text-base font-medium">{news.news_title}</h2>
           <div className="flex items-center space-x-1 py-1">
