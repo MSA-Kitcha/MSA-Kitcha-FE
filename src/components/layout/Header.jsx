@@ -30,7 +30,7 @@ const Header = ({ uploadHandler }) => {
       </div>
       {isWritePage && (
         <button
-          className="ml-auto mr-[30px] w-[63px] h-9 rounded-[24px] text-sm font-nanum text-[#595959] cursor-pointer shadow-[inset_0_0_0_1px_#D192F3]"
+          className="ml-auto mr-[30px] w-[63px] h-9 rounded-[24px] text-sm font-nanum text-[#595959] cursor-pointer shadow-[inset_0_0_0_1px_#D192F3] hover:bg-[#FDF8FF] transition duration-300"
           onClick={uploadHandler}
         >
           업로드
