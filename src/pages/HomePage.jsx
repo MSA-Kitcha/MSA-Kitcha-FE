@@ -67,7 +67,7 @@ const HomePage = () => {
         </div>
         {/* mypick 다시 선택하기 */}
         <div
-          onClick={() => nav('/mypick')}
+          onClick={() => nav('/mypick', { state: { fromHome: true } })}
           className="flex items-center justify-end shadow-[2px_2px_10px_2px_rgba(0,0,0,0.15)] cursor-pointer relative mt-[16px] w-full aspect-[5/1] rounded-[16px] bg-linear-[180deg,#FF7C7E_0%,#FF9B9C_100%]"
         >
           <img

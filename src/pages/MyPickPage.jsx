@@ -1,21 +1,25 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Keyword from '@/components/mypick/Keyword';
 import keywords from '@/constants/mypick/keywords';
 import { useState } from 'react';
 
 const MyPickPage = () => {
-  const nav = useNavigate();
   const [selectedKeywordId, setSelectedKeywordId] = useState(null);
+  const nav = useNavigate();
+  const location = useLocation();
+  const fromHome = location.state?.fromHome || false;
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="w-[28px] flex gap-3">
-          <div className="w-2 h-2 rounded-full bg-[#D9D9D9]" />
-          <div className="w-2 h-2 rounded-full bg-[#BC56F3]" />
+      {!fromHome && (
+        <div className="flex justify-center">
+          <div className="w-[28px] flex gap-3">
+            <div className="w-2 h-2 rounded-full bg-[#D9D9D9]" />
+            <div className="w-2 h-2 rounded-full bg-[#BC56F3]" />
+          </div>
         </div>
-      </div>
-      <div className="relative px-[45px] mt-5 z-10">
+      )}
+      <div className={`relative px-[45px] z-10 ${fromHome ? 'mt-[34px]' : 'mt-5'}`}>
         <p className="text-[22px] leading-[30px] font-bold z-10">킷챠님, 가장 관심 있는 뉴스를</p>
         <p className="text-[22px] leading-[30px] font-bold z-10">선택해주세요</p>
         <div className="absolute top-[17px] left-[162px] w-[88px] h-3 bg-[#BC56F3] opacity-[25%] z-20" />
