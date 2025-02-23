@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import InputField from '@/components/ui/InputField';
 import kitcha from '@/assets/webps/login/kitcha.webp';
 import ball1 from '@/assets/webps/login/ball1.webp';
 import ball2 from '@/assets/webps/login/ball2.webp';
 import rightArrowBlack from '@/assets/webps/login/rightArrowBlack.webp';
-import rightArrowWhite from '@/assets/webps/common/rightArrowWhite.webp';
+import rightArrowWhite from '@/assets/webps/login/rightArrowWhite.webp';
 import balls from '@/assets/webps/login/balls.webp';
-import InputField from '@/components/ui/InputField';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const LoginPage = () => {
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
-  
+
   const isLoginEnabled = isValidEmail(email) && password.trim() !== '';
 
   return (
