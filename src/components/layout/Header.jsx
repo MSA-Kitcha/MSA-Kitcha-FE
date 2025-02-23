@@ -10,7 +10,7 @@ const Header = ({ uploadHandler }) => {
 
   return (
     <div
-      className={`min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center`}
+      className={`min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center z-100`}
     >
       <div className="flex ml-4 items-center">
         {!isHome && (

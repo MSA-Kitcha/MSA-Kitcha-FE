@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import gatcha from '@/assets/webps/home/gatcha.webp';
+import gatcha from '@/assets/webps/home/gatchaTrans.webp';
 import ball1 from '@/assets/webps/home/ball1.webp';
 import ball2 from '@/assets/webps/home/ball2.webp';
 import ball3 from '@/assets/webps/home/ball3.webp';
 import ball4 from '@/assets/webps/home/ball4.webp';
-import deco from '@/assets/webps/home/deco.webp';
+import deco from '@/assets/webps/common/deco.webp';
 import rightArrowWhite from '@/assets/webps/home/rightArrowWhiteBold.webp';
 import rightArrowBlack from '@/assets/webps/home/rightArrowBlackBold.webp';
 
@@ -59,9 +59,9 @@ const HomePage = () => {
           />
           <div className="absolute right-[20px] bottom-[14px] flex flex-col items-end">
             <p className="text-[#1B1B1B] font-bold text-[18px] leading-[34px]">
-              AI가 요약해주는 뉴스 보러
+              사람들의 뉴스 취향 둘러보기
             </p>
-            <p className="text-[#1B1B1B] font-extrabold text-[26px] leading-[34px]">KITCHA!</p>
+            <p className="text-[#1B1B1B] font-extrabold text-[26px] leading-[34px]">KITMUNITY!</p>
             <img className="w-6 h-6 mt-1" src={rightArrowBlack} alt="right arrow" />
           </div>
         </div>
