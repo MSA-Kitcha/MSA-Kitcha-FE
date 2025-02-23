@@ -2,10 +2,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import logo from '@/assets/webps/layout/logo.webp';
 import prevBtn from '@/assets/webps/layout/prevBtn.webp';
 
-const Header = () => {
+const Header = ({ uploadHandler }) => {
   const nav = useNavigate();
   const location = useLocation();
   const isHome = location.pathname == '/home';
+  const isWritePage = location.pathname == '/board/write';
 
   return (
     <div
@@ -27,6 +28,14 @@ const Header = () => {
           alt="logo"
         />
       </div>
+      {isWritePage && (
+        <button
+          className="ml-auto mr-[30px] w-[63px] h-9 rounded-[24px] text-sm font-nanum text-[#595959] cursor-pointer shadow-[inset_0_0_0_1px_#D192F3]"
+          onClick={uploadHandler}
+        >
+          업로드
+        </button>
+      )}
     </div>
   );
 };
