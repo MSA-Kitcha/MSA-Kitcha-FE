@@ -6,7 +6,7 @@ const Header = ({ uploadHandler }) => {
   const nav = useNavigate();
   const location = useLocation();
   const isHome = location.pathname == '/home';
-  const isWritePage = location.pathname == '/board/write';
+  const isWritePage = location.pathname == '/board/write' || location.pathname.includes('/edit');
 
   return (
     <div

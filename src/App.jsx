@@ -32,6 +32,7 @@ function App() {
           <Route path="/board" element={<BoardListPage />} />
           <Route path="/board/:boardId" element={<BoardDetailPage />} />
           <Route path="/board/write" element={<WritePage />} />
+          <Route path="/board/edit/:boardId" element={<WritePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
