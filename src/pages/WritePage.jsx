@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import summary from '@/assets/svgs/common/summary.svg';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import summary from '@/assets/svgs/common/summary.svg';
 
 const WritePage = () => {
   // Layout에서 전달된 핸들러 설정 함수

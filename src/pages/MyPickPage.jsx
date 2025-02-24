@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Keyword from '@/components/mypick/Keyword';
 import keywords from '@/constants/mypick/keywords';
-import { useState } from 'react';
 
 const MyPickPage = () => {
   const [selectedKeywordId, setSelectedKeywordId] = useState(null);
