@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import deco from '@/assets/webps/common/deco.webp';
 import plus from '@/assets/webps/upload/plus.webp';
+import instance from '@/apis/instance';
 
 const UploadPage = () => {
   const [turn, setTurn] = useState(false);
   const [rotation, setRotation] = useState(0); // 회전 각도
   const [selectedFile, setSelectedFile] = useState(null);
+  const [file, setFile] = useState(null); // 실제 파일 객체 저장
   const nav = useNavigate();
   const fileInputRef = useRef(null); // 파일 업로드 ref
 
@@ -17,24 +19,39 @@ const UploadPage = () => {
 
   // 파일 업로드 핸들러
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(URL.createObjectURL(file));
-      console.log('선택된 파일:', file);
+    const uploadedFile = event.target.files[0];
+    if (uploadedFile) {
+      setSelectedFile(URL.createObjectURL(uploadedFile));
+      setFile(uploadedFile);
+      console.log('선택된 파일:', uploadedFile);
     }
   };
 
   // 레버 클릭 핸들러
-  const handleLeverClick = () => {
-    if (selectedFile) {
-      setTurn(true);
+  const handleLeverClick = async () => {
+    if (!file) {
+      alert('사진을 업로드 하면 레버를 돌릴 수 있어요!');
+      return;
+    }
+
+    setTurn(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await instance.post('/apps/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      console.log('파일 업로드 성공:', response.data.result);
 
       setTimeout(() => {
-        console.log(`to do: 이미지 파일 /apps/upload 에 POST -> 응답으로 /news 띄워주기`);
-        nav('/news');
+        nav('/news', { state: response.data.result });
       }, 3500);
-    } else {
-      alert('사진을 업로드 하면 레버를 돌릴 수 있어요!');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '파일 업로드에 실패했습니다.';
+      console.error('파일 업로드 오류:', errorMessage);
     }
   };
 
