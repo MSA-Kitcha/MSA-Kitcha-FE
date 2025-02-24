@@ -64,7 +64,7 @@ const HomePage = () => {
         {/* mypick 다시 선택하기 */}
         <div
           onClick={() => nav('/mypick', { state: { fromHome: true } })}
-          className="flex items-center justify-end shadow-[2px_2px_10px_2px_rgba(0,0,0,0.15)] cursor-pointer relative mt-[16px] w-full aspect-[5/1] rounded-[16px] bg-linear-[180deg,#FF7C7E_0%,#FF9B9C_100%]"
+          className="mb-[60px] flex items-center justify-end shadow-[2px_2px_10px_2px_rgba(0,0,0,0.15)] cursor-pointer relative mt-[16px] w-full aspect-[5/1] rounded-[16px] bg-linear-[180deg,#FF7C7E_0%,#FF9B9C_100%]"
         >
           <img
             className="max-[389px]:hidden w-[84px] h-[12px] ml-[18px] z-0"

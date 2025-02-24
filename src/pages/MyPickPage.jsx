@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import instance from '@/apis/instance';
 import Keyword from '@/components/mypick/Keyword';
 import keywords from '@/constants/mypick/keywords';
-import instance from '@/apis/instance';
 
 const MyPickPage = () => {
   const [selectedKeyword, setSelectedKeyword] = useState(null);
@@ -56,7 +56,7 @@ const MyPickPage = () => {
         </div>
       </div>
       {/* Pick! */}
-      <div className="w-full flex justify-center">
+      <div className="mb-[60px] w-full flex justify-center">
         <button
           disabled={!selectedKeyword}
           onClick={handlePickBtnClick}

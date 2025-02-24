@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InputField from '@/components/ui/InputField';
 import instance from '@/apis/instance';
+import InputField from '@/components/ui/InputField';
 
 const JoinPage = () => {
   const [nickname, setNickname] = useState('');
@@ -240,7 +240,7 @@ const JoinPage = () => {
           </div>
 
           {/* 다음 */}
-          <div className="w-full flex justify-center">
+          <div className="mb-[120px] w-full flex justify-center">
             <button
               disabled={!isNextBtnEnabled}
               onClick={handleNextBtnClick}

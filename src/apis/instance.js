@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
 });
 
 // 요청 인터셉터 (JWT 토큰 자동 포함)

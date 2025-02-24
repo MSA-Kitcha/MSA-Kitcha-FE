@@ -1,16 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import instance from '@/apis/instance';
+import Modal from '@/components/ui/Modal';
 import deco from '@/assets/webps/common/deco.webp';
 import plus from '@/assets/webps/upload/plus.webp';
-import instance from '@/apis/instance';
 
 const UploadPage = () => {
   const [turn, setTurn] = useState(false);
   const [rotation, setRotation] = useState(0); // 회전 각도
   const [selectedFile, setSelectedFile] = useState(null);
   const [file, setFile] = useState(null); // 실제 파일 객체 저장
+  const [modalMessage, setModalMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const nav = useNavigate();
   const fileInputRef = useRef(null); // 파일 업로드 ref
+
+  // 모달 열기
+  const openModal = (message) => {
+    setModalMessage(message);
+    setIsModalOpen(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => setIsModalOpen(false);
 
   // 파일 업로드 핸들러
   const handleUploadClick = () => {
@@ -30,7 +43,7 @@ const UploadPage = () => {
   // 레버 클릭 핸들러
   const handleLeverClick = async () => {
     if (!file) {
-      alert('사진을 업로드 하면 레버를 돌릴 수 있어요!');
+      openModal('사진을 업로드 해주세요.');
       return;
     }
 
@@ -75,6 +88,8 @@ const UploadPage = () => {
 
   return (
     <>
+      <Modal isOpen={isModalOpen} message={modalMessage} onClose={closeModal} />
+
       <div className="px-[30px] flex flex-col items-center justify-center">
         <div className="justify-center z-10 pt-[85px] pb-[15px] px-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] relative mt-[18px] w-full rounded-[16px] bg-linear-[91deg,#FF7B7D_0%,#FF9B9C_100%]">
           <p className="absolute tracking-normal text-[14px] text-white left-[18px] top-[14px]">
@@ -111,7 +126,7 @@ const UploadPage = () => {
         </div>
         <div
           onClick={handleLeverClick}
-          className="cursor-pointer mt-[30px] shadow-[-2px_-4px_4px_0px_rgba(0,0,0,0.15)_inset] w-[60px] h-[60px] rounded-full bg-[#E7E7E7] flex justify-center items-center"
+          className="mb-[60px] cursor-pointer mt-[30px] shadow-[-2px_-4px_4px_0px_rgba(0,0,0,0.15)_inset] w-[60px] h-[60px] rounded-full bg-[#E7E7E7] flex justify-center items-center"
         >
           <div
             style={{
