@@ -27,6 +27,7 @@ const JoinPage = () => {
     setNicknameAlert('');
   };
 
+  // 닉네임 중복 확인
   const checkNicknameDuplicate = async () => {
     setNicknameAlert('');
 
@@ -105,6 +106,24 @@ const JoinPage = () => {
       setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError('');
+    }
+  };
+
+  // 회원가입 요청 ('다음' 버튼 클릭)
+  const handleNextBtnClick = async () => {
+    try {
+      const response = await instance.post('/users/sign-up', {
+        nickname,
+        email,
+        password,
+      });
+
+      console.log('회원가입 성공:', response.data.message);
+      nav('/mypick');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';
+      console.error('회원가입 오류:', errorMessage);
+      alert(errorMessage);
     }
   };
 
@@ -225,7 +244,7 @@ const JoinPage = () => {
           <div className="w-full flex justify-center">
             <button
               disabled={!isNextBtnEnabled}
-              onClick={() => nav('/mypick')}
+              onClick={handleNextBtnClick}
               className={`${
                 isNextBtnEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
               } mt-[78px] justify-center transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[100px] h-[54px] rounded-[50px]`}
