@@ -2,12 +2,27 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Keyword from '@/components/mypick/Keyword';
 import keywords from '@/constants/mypick/keywords';
+import instance from '@/apis/instance';
 
 const MyPickPage = () => {
-  const [selectedKeywordId, setSelectedKeywordId] = useState(null);
+  const [selectedKeyword, setSelectedKeyword] = useState(null);
   const nav = useNavigate();
   const location = useLocation();
   const fromHome = location.state?.fromHome || false;
+
+  const handlePickBtnClick = async () => {
+    try {
+      const response = await instance.post('/users/interest', {
+        interest: selectedKeyword,
+      });
+
+      console.log('관심사 설정 성공:', response.data.message);
+      nav('/home');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '관심사 설정에 실패했습니다.';
+      console.error('관심사 설정 오류:', errorMessage);
+    }
+  };
 
   return (
     <>
@@ -32,10 +47,10 @@ const MyPickPage = () => {
         <div className="w-[268px] grid grid-cols-2 gap-x-[28px] gap-y-3">
           {keywords.map((keyword) => (
             <Keyword
-              key={keyword.id}
-              content={keyword.text}
-              isSelected={selectedKeywordId === keyword.id}
-              onClick={() => setSelectedKeywordId(keyword.id)}
+              key={keyword}
+              content={keyword}
+              isSelected={selectedKeyword === keyword}
+              onClick={() => setSelectedKeyword(keyword)}
             />
           ))}
         </div>
@@ -43,10 +58,10 @@ const MyPickPage = () => {
       {/* Pick! */}
       <div className="w-full flex justify-center">
         <button
-          disabled={!selectedKeywordId}
-          onClick={() => nav('/home')}
+          disabled={!selectedKeyword}
+          onClick={handlePickBtnClick}
           className={`${
-            selectedKeywordId ? 'cursor-pointer' : 'cursor-default opacity-30'
+            selectedKeyword ? 'cursor-pointer' : 'cursor-default opacity-30'
           } mt-[40px] justify-center transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[124px] h-[54px] rounded-[54px]`}
         >
           <span className="text-white font-[700] text-[20px]">PICK !</span>

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '@/components/ui/InputField';
+import instance from '@/apis/instance';
 
 const JoinPage = () => {
   const [nickname, setNickname] = useState('');
@@ -19,9 +20,6 @@ const JoinPage = () => {
   const confirmPasswordRef = useRef(null);
   const nav = useNavigate();
 
-  const dummyNickname = ['테스트']; // 더미 닉네임
-  const dummyEmail = ['test@naver.com']; // 더미 이메일
-
   // 닉네임 input 핸들러
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
@@ -29,17 +27,23 @@ const JoinPage = () => {
     setNicknameAlert('');
   };
 
-  // 닉네임 중복 확인 (더미 데이터)
+  // 닉네임 중복 확인
   const checkNicknameDuplicate = async () => {
     setNicknameAlert('');
 
-    if (dummyNickname.includes(nickname)) {
-      setNicknameAlert('닉네임이 중복되었습니다.');
-      setNickname('');
-      setIsNicknameValid(false);
-    } else {
+    try {
+      await instance.get(`/users?nickname=${nickname}`);
       setNicknameAlert('사용할 수 있는 닉네임입니다.');
       setIsNicknameValid(true);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        setNicknameAlert('중복된 닉네임입니다.');
+        setIsNicknameValid(false);
+      } else {
+        console.error('닉네임 중복 확인 실패:', error);
+        setNicknameAlert('닉네임 확인 중 오류가 발생했습니다.');
+        setIsNicknameValid(false);
+      }
     }
   };
 
@@ -55,7 +59,7 @@ const JoinPage = () => {
     setEmailAlert('');
   };
 
-  // 이메일 중복 확인 (더미 데이터)
+  // 이메일 중복 확인
   const checkEmailDuplicate = async () => {
     if (!isValidEmail(email)) {
       setEmailAlert('올바른 이메일을 입력해주세요.');
@@ -65,13 +69,19 @@ const JoinPage = () => {
 
     setEmailAlert('');
 
-    if (dummyEmail.includes(email)) {
-      setEmailAlert('이메일이 중복되었습니다.');
-      setEmail('');
-      setIsEmailValid(false);
-    } else {
+    try {
+      await instance.get(`/users?email=${email}`);
       setEmailAlert('사용할 수 있는 이메일입니다.');
       setIsEmailValid(true);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        setEmailAlert('중복된 이메일입니다.');
+        setIsEmailValid(false);
+      } else {
+        console.error('이메일 중복 확인 실패:', error);
+        setEmailAlert('이메일 확인 중 오류가 발생했습니다.');
+        setIsEmailValid(false);
+      }
     }
   };
 
@@ -96,6 +106,23 @@ const JoinPage = () => {
       setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError('');
+    }
+  };
+
+  // 회원가입 요청 ('다음' 버튼 클릭)
+  const handleNextBtnClick = async () => {
+    try {
+      const response = await instance.post('/users/sign-up', {
+        nickname,
+        email,
+        password,
+      });
+
+      console.log('회원가입 성공:', response.data.message);
+      nav('/mypick');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';
+      console.error('회원가입 오류:', errorMessage);
     }
   };
 
@@ -216,7 +243,7 @@ const JoinPage = () => {
           <div className="w-full flex justify-center">
             <button
               disabled={!isNextBtnEnabled}
-              onClick={() => nav('/mypick')}
+              onClick={handleNextBtnClick}
               className={`${
                 isNextBtnEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
               } mt-[78px] justify-center transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[100px] h-[54px] rounded-[50px]`}

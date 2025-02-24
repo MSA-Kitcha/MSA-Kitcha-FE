@@ -10,11 +10,6 @@ instance.interceptors.request.use(
   (config) => {
     const token = sessionStorage.getItem('jwtToken');
 
-    // 로그인 요청(`/users/login`)만 Content-Type 추가
-    if (config.url === '/users/login') {
-      config.headers['Content-Type'] = 'application/json';
-    }
-
     // 토큰이 있으면 Authorization 헤더 추가
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
