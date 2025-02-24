@@ -50,7 +50,7 @@ const RandomPage = () => {
   return (
     <>
       <div className="px-[30px] flex flex-col items-center justify-center">
-        <div className="justify-center z-10 pt-[85px] pb-[15px] px-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] cursor-pointer relative mt-[18px] w-full rounded-[16px] bg-linear-[90deg,#FFC7EE_0%,#FFD4EF_100%]">
+        <div className="justify-center z-10 pt-[85px] pb-[15px] px-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] relative mt-[18px] w-full rounded-[16px] bg-linear-[90deg,#FFC7EE_0%,#FFD4EF_100%]">
           <p className="absolute tracking-normal text-[14px] text-[#6C6C6C] left-[18px] top-[14px]">
             랜덤하게 뉴스를 뽑아줘요
           </p>
