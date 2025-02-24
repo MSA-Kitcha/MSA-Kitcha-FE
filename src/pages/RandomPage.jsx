@@ -29,13 +29,20 @@ const RandomPage = () => {
   };
 
   // heart 클릭 핸들러
-  const handleHeartClick = () => {
+  const handleHeartClick = async () => {
     setShowMessage(true);
 
-    setTimeout(() => {
-      console.log(`to do: ${newsData?.interest} 담아서 /apps/interest_news 에 POST`);
-      nav('/news');
-    }, 2500);
+    try {
+      const response = await instance.post('/apps/interest_news', { interest: newsData?.interest });
+      console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
+      setTimeout(() => {
+        nav('/news', { state: response.data.result });
+      }, 2500);
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || '관심사 업데이트 및 랜덤 뉴스 리스트 받기에 실패했습니다.';
+      console.error('관심사 업데이트 및 랜덤 뉴스 리스트 받기 오류:', errorMessage);
+    }
   };
 
   // 마운팅 시 랜덤 뉴스 불러오기
