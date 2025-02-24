@@ -7,6 +7,7 @@ import ball2 from '@/assets/webps/login/ball2.webp';
 import rightArrowBlack from '@/assets/webps/login/rightArrowBlack.webp';
 import rightArrowWhite from '@/assets/webps/login/rightArrowWhite.webp';
 import balls from '@/assets/webps/login/balls.webp';
+import instance from '@/apis/instance';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +21,32 @@ const LoginPage = () => {
   };
 
   const isLoginEnabled = isValidEmail(email) && password.trim() !== '';
+
+  // 로그인
+  const handleLogin = async () => {
+    try {
+      const response = await instance.post('/users/login', { email, password });
+
+      // JWT 토큰 헤더에서 가져오기
+      const token = response.headers['authorization']?.split(' ')[1];
+      if (!token) throw new Error('토큰이 없습니다.');
+
+      const { role } = response.data;
+
+      // sessionStorage에 저장
+      sessionStorage.setItem('jwtToken', token);
+      sessionStorage.setItem('role', role);
+
+      console.log('로그인 성공:', role);
+
+      // 로그인 후 홈으로 이동
+      nav('/home');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '로그인에 실패했습니다.';
+      console.error(errorMessage);
+      alert(errorMessage);
+    }
+  };
 
   return (
     <>
@@ -81,7 +108,7 @@ const LoginPage = () => {
                 {/* Login */}
                 <button
                   disabled={!isLoginEnabled}
-                  onClick={() => nav('/home')}
+                  onClick={handleLogin}
                   className={`${
                     isLoginEnabled ? 'cursor-pointer' : 'cursor-default opacity-30'
                   } transition duration-300 bg-linear-[90deg,#BC56F3_0%,#9566D5_100%] z-[10] flex items-center w-[124px] h-[54px] rounded-[50px]`}
