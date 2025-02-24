@@ -68,7 +68,7 @@ const RandomPage = () => {
                 src={summary}
                 alt="summary"
               />
-              <div className="text-[#363636] text-[12px] leading-[19px] tracking-normal">
+              <div className="whitespace-pre-wrap text-[#363636] text-[12px] leading-[19px] tracking-normal">
                 {long_summary}
               </div>
             </div>
