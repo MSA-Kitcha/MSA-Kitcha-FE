@@ -13,7 +13,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="px-[30px] flex flex-col itmes-center justify-center">
+      <div className="px-[30px] flex flex-col items-center justify-center tracking-normal">
         {/* kitcha */}
         <div
           onClick={() => nav('/kitcha')}
@@ -35,9 +35,7 @@ const HomePage = () => {
             alt="ball"
           />
           <div className="absolute right-[20px] bottom-[18px] flex flex-col items-end">
-            <p className="text-white font-bold text-[18px] leading-[34px]">
-              AI가 요약해주는 뉴스 보러
-            </p>
+            <p className="text-white text-[18px] leading-[34px]">AI가 요약해주는 뉴스 보러</p>
             <p className="text-white font-extrabold text-[26px] leading-[34px]">KITCHA!</p>
             <img className="w-6 h-6 mt-1" src={rightArrowWhite} alt="right arrow" />
           </div>
@@ -58,9 +56,7 @@ const HomePage = () => {
             alt="ball"
           />
           <div className="absolute right-[20px] bottom-[14px] flex flex-col items-end">
-            <p className="text-[#1B1B1B] font-bold text-[18px] leading-[34px]">
-              사람들의 뉴스 취향 둘러보기
-            </p>
+            <p className="text-[#1B1B1B] text-[18px] leading-[34px]">사람들의 뉴스 취향 둘러보기</p>
             <p className="text-[#1B1B1B] font-extrabold text-[26px] leading-[34px]">KITMUNITY!</p>
             <img className="w-6 h-6 mt-1" src={rightArrowBlack} alt="right arrow" />
           </div>
@@ -75,7 +71,7 @@ const HomePage = () => {
             src={deco}
             alt="deco"
           />
-          <p className="mr-[19px] text-white font-bold text-[19px] leading-[22px] whitespace-nowrap z-10">
+          <p className="mr-[19px] text-white text-[19px] leading-[22px] whitespace-nowrap z-10">
             <span className="font-extrabold ml-[11px]">MY PICK</span> 다시 선택하기
           </p>
         </div>

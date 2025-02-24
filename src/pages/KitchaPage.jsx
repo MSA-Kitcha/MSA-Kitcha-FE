@@ -7,7 +7,7 @@ const KitchaPage = () => {
 
   return (
     <>
-      <div className="px-[30px] flex flex-col itmes-center justify-center">
+      <div className="px-[30px] flex flex-col items-center justify-center">
         {/* MY PICK */}
         <div
           onClick={() => nav('/news')}
