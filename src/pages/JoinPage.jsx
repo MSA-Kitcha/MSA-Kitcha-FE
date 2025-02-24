@@ -123,7 +123,6 @@ const JoinPage = () => {
     } catch (error) {
       const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';
       console.error('회원가입 오류:', errorMessage);
-      alert(errorMessage);
     }
   };
 
