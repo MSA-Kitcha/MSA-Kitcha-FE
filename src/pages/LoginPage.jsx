@@ -1,20 +1,32 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import instance from '@/apis/instance';
 import InputField from '@/components/ui/InputField';
+import Modal from '@/components/ui/Modal';
 import kitcha from '@/assets/webps/login/kitcha.webp';
 import ball1 from '@/assets/webps/login/ball1.webp';
 import ball2 from '@/assets/webps/login/ball2.webp';
 import rightArrowBlack from '@/assets/webps/login/rightArrowBlack.webp';
 import rightArrowWhite from '@/assets/webps/login/rightArrowWhite.webp';
 import balls from '@/assets/webps/login/balls.webp';
-import instance from '@/apis/instance';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const nav = useNavigate();
+
+  // 모달 열기
+  const openModal = (message) => {
+    setModalMessage(message);
+    setIsModalOpen(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => setIsModalOpen(false);
 
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -48,12 +60,14 @@ const LoginPage = () => {
     } catch (error) {
       const errorMessage = error.response?.data?.message || '로그인에 실패했습니다.';
       console.error(errorMessage);
-      alert(errorMessage);
+      openModal('Email 또는 PW가 일치하지 않습니다.');
     }
   };
 
   return (
     <>
+      <Modal isOpen={isModalOpen} message={modalMessage} onClose={closeModal} />
+
       <div className="relative bg-gray-100 min-h-screen w-full flex flex-col items-center">
         <div className="font-nanum tracking-[-0.4px] min-h-[100vh] relative flex flex-col min-w-[360px] w-full max-w-[440px] bg-white">
           <main>

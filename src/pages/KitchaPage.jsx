@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import instance from '@/apis/instance';
 import deco from '@/assets/webps/common/deco.webp';
 import gatcha from '@/assets/webps/kitcha/gatcha.webp';
-import instance from '@/apis/instance';
 
 const KitchaPage = () => {
   const nav = useNavigate();
@@ -50,7 +50,7 @@ const KitchaPage = () => {
         {/* UPLOAD */}
         <div
           onClick={() => nav('/upload')}
-          className="z-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] cursor-pointer relative mt-[18px] w-full aspect-[11/3] rounded-[16px] bg-linear-[90deg,#FF7B7D_0%,#FF9B9C_100%]"
+          className="mb-[180px] z-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] cursor-pointer relative mt-[18px] w-full aspect-[11/3] rounded-[16px] bg-linear-[90deg,#FF7B7D_0%,#FF9B9C_100%]"
         >
           <p className="absolute tracking-normal text-[14px] text-white left-[18px] top-[14px]">
             사진을 업로드 해

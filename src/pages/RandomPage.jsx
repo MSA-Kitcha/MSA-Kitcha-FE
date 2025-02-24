@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import instance from '@/apis/instance';
 import deco from '@/assets/webps/common/deco.webp';
 import summary from '@/assets/svgs/common/summary.svg';
 import heart from '@/assets/webps/random/heart.webp';
 import bad from '@/assets/webps/random/bad.webp';
-import instance from '@/apis/instance';
 
 const RandomPage = () => {
   const nav = useNavigate();
@@ -101,7 +101,7 @@ const RandomPage = () => {
           </div>
         </div>
         <div>
-          <div className="mt-[30px] flex w-[152px] justify-between mx-auto">
+          <div className="mb-[80px] mt-[30px] flex w-[152px] justify-between mx-auto">
             <div className="relative">
               <div
                 onClick={handleHeartClick}
