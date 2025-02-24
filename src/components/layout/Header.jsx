@@ -22,12 +22,17 @@ const Header = ({ uploadHandler }) => {
           />
         )}
         <img
-          className="w-[101px] h-[30px] cursor-pointer"
+          className={`${isHome ? 'ml-[14px]' : ''} w-[101px] h-[30px] cursor-pointer`}
           onClick={() => nav('/home')}
           src={logo}
           alt="logo"
         />
       </div>
+      {isHome && (
+        <span className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal">
+          Logout
+        </span>
+      )}
       {isWritePage && (
         <button
           className="ml-auto mr-[30px] w-[63px] h-9 rounded-[24px] text-sm font-nanum text-[#595959] cursor-pointer shadow-[inset_0_0_0_1px_#D192F3] hover:bg-[#FDF8FF] transition duration-300"
