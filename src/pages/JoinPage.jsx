@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '@/components/ui/InputField';
+import instance from '@/apis/instance';
 
 const JoinPage = () => {
   const [nickname, setNickname] = useState('');
@@ -19,9 +20,6 @@ const JoinPage = () => {
   const confirmPasswordRef = useRef(null);
   const nav = useNavigate();
 
-  const dummyNickname = ['테스트']; // 더미 닉네임
-  const dummyEmail = ['test@naver.com']; // 더미 이메일
-
   // 닉네임 input 핸들러
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
@@ -29,17 +27,22 @@ const JoinPage = () => {
     setNicknameAlert('');
   };
 
-  // 닉네임 중복 확인 (더미 데이터)
   const checkNicknameDuplicate = async () => {
     setNicknameAlert('');
 
-    if (dummyNickname.includes(nickname)) {
-      setNicknameAlert('닉네임이 중복되었습니다.');
-      setNickname('');
-      setIsNicknameValid(false);
-    } else {
+    try {
+      await instance.get(`/users?nickname=${nickname}`);
       setNicknameAlert('사용할 수 있는 닉네임입니다.');
       setIsNicknameValid(true);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        setNicknameAlert('중복된 닉네임입니다.');
+        setIsNicknameValid(false);
+      } else {
+        console.error('닉네임 중복 확인 실패:', error);
+        setNicknameAlert('닉네임 확인 중 오류가 발생했습니다.');
+        setIsNicknameValid(false);
+      }
     }
   };
 
@@ -55,7 +58,7 @@ const JoinPage = () => {
     setEmailAlert('');
   };
 
-  // 이메일 중복 확인 (더미 데이터)
+  // 이메일 중복 확인
   const checkEmailDuplicate = async () => {
     if (!isValidEmail(email)) {
       setEmailAlert('올바른 이메일을 입력해주세요.');
@@ -65,13 +68,19 @@ const JoinPage = () => {
 
     setEmailAlert('');
 
-    if (dummyEmail.includes(email)) {
-      setEmailAlert('이메일이 중복되었습니다.');
-      setEmail('');
-      setIsEmailValid(false);
-    } else {
+    try {
+      await instance.get(`/users?email=${email}`);
       setEmailAlert('사용할 수 있는 이메일입니다.');
       setIsEmailValid(true);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        setEmailAlert('중복된 이메일입니다.');
+        setIsEmailValid(false);
+      } else {
+        console.error('이메일 중복 확인 실패:', error);
+        setEmailAlert('이메일 확인 중 오류가 발생했습니다.');
+        setIsEmailValid(false);
+      }
     }
   };
 
