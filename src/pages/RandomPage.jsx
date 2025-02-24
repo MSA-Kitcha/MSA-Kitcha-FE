@@ -1,34 +1,54 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import randomData from '@/constants/random/randomData';
 import deco from '@/assets/webps/common/deco.webp';
 import summary from '@/assets/svgs/common/summary.svg';
 import heart from '@/assets/webps/random/heart.webp';
 import bad from '@/assets/webps/random/bad.webp';
+import instance from '@/apis/instance';
 
 const RandomPage = () => {
   const nav = useNavigate();
+  const [newsData, setNewsData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
   const [fade, setFade] = useState(false); // 말풍선 서서히 없어지게
 
-  const { news_title, long_summary, interest } = randomData[0];
+  // random news 가져오기
+  const fetchRandomNews = async () => {
+    setIsLoading(true);
+    try {
+      const response = await instance.get('/apps/random');
+      console.log('랜덤 뉴스 받기 성공:', response.data.result);
+      setNewsData(response.data.result);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '랜덤 뉴스 받기에 실패했습니다.';
+      console.error('랜덤 뉴스 받기 오류:', errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // heart 클릭 핸들러
-  const handleHeartClick = () => {
+  const handleHeartClick = async () => {
     setShowMessage(true);
 
-    setTimeout(() => {
-      console.log(`to do: ${interest} 담아서 /apps/interest_news 에 POST`);
-      nav('/news');
-    }, 2500);
+    try {
+      const response = await instance.post('/apps/interest_news', { interest: newsData?.interest });
+      console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
+      setTimeout(() => {
+        nav('/news', { state: response.data.result });
+      }, 2500);
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || '관심사 업데이트 및 랜덤 뉴스 리스트 받기에 실패했습니다.';
+      console.error('관심사 업데이트 및 랜덤 뉴스 리스트 받기 오류:', errorMessage);
+    }
   };
 
-  // bad 클릭 핸들러
-  const handleBadClick = () => {
-    console.log('to do: /apps/random GET 재호출');
-  };
-
-  // to do: useEffect로 마운팅 시 /apps/random GET 호출
+  // 마운팅 시 랜덤 뉴스 불러오기
+  useEffect(() => {
+    fetchRandomNews();
+  }, []);
 
   // 말풍선 애니메이션
   useEffect(() => {
@@ -59,19 +79,25 @@ const RandomPage = () => {
             RANDOM
           </p>
           <div className="bg-white pt-5 pb-4 px-4 rounded-[10px] shadow-[-2px_-2px_4px_0px_rgba(0,0,0,0.05),2px_2px_4px_0px_rgba(0,0,0,0.05)]">
-            <h4 className="text-[#363636] text-[16px] tracking-normal font-bold leading-[24px] mb-3">
-              {news_title}
-            </h4>
-            <div className="relative py-4 pl-8 pr-[18px] bg-white rounded-[10px] shadow-[-2px_-2px_4px_0px_rgba(0,0,0,0.05),2px_2px_4px_0px_rgba(0,0,0,0.05)]">
-              <img
-                className="absolute top-4 left-[10px] w-[16px] h-[16px]"
-                src={summary}
-                alt="summary"
-              />
-              <div className="whitespace-pre-wrap text-[#363636] text-[12px] leading-[19px] tracking-normal">
-                {long_summary}
-              </div>
-            </div>
+            {isLoading ? (
+              <p className="text-[#363636] text-center py-[100px]">랜덤 뉴스를 불러오는 중...</p>
+            ) : (
+              <>
+                <h4 className="text-[#363636] text-[16px] tracking-normal font-bold leading-[24px] mb-3">
+                  {newsData?.news_title}
+                </h4>
+                <div className="relative py-4 pl-8 pr-[18px] bg-white rounded-[10px] shadow-[-2px_-2px_4px_0px_rgba(0,0,0,0.05),2px_2px_4px_0px_rgba(0,0,0,0.05)]">
+                  <img
+                    className="absolute top-4 left-[10px] w-[16px] h-[16px]"
+                    src={summary}
+                    alt="summary"
+                  />
+                  <div className="whitespace-pre-wrap text-[#363636] text-[12px] leading-[19px] tracking-normal">
+                    {newsData?.long_summary}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div>
@@ -99,7 +125,7 @@ const RandomPage = () => {
               )}
             </div>
             <div
-              onClick={handleBadClick}
+              onClick={fetchRandomNews}
               className="cursor-pointer w-[60px] h-[60px] flex justify-center items-center bg-[#9B9B9B] rounded-full"
             >
               <img className="w-[30px] h-[30px]" src={bad} alt="bad" />

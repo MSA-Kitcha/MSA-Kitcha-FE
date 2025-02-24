@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import newsData from '@/constants/newslist/newsData';
 import summary from '@/assets/svgs/common/summary.svg';
 
 const NewsListPage = () => {
   const nav = useNavigate();
+
+  // API 응답 데이터 가져오기
+  const newsData = location.state || [];
 
   return (
     <div className="p-8 space-y-4 bg-[white]">

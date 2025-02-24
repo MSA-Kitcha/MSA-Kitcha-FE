@@ -1,16 +1,29 @@
 import { useNavigate } from 'react-router-dom';
 import deco from '@/assets/webps/common/deco.webp';
 import gatcha from '@/assets/webps/kitcha/gatcha.webp';
+import instance from '@/apis/instance';
 
 const KitchaPage = () => {
   const nav = useNavigate();
+
+  const handleMyPickClick = async () => {
+    try {
+      const response = await instance.get('/apps/mypick');
+      console.log('관심사 뉴스 받기 성공:', response.data.result);
+
+      nav('/news', { state: response.data.result });
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || '관심사 뉴스 받기에 실패했습니다.';
+      console.error('관심사 뉴스 받기 오류:', errorMessage);
+    }
+  };
 
   return (
     <>
       <div className="px-[30px] flex flex-col items-center justify-center">
         {/* MY PICK */}
         <div
-          onClick={() => nav('/news')}
+          onClick={handleMyPickClick}
           className="z-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] cursor-pointer relative mt-[34px] w-full aspect-[11/3] rounded-[16px] bg-linear-[90deg,#BC56F3_0%,#9566D5_100%]"
         >
           <p className="absolute tracking-normal text-[14px] text-white left-[18px] top-[14px]">

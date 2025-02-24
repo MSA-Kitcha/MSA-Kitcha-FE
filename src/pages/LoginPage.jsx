@@ -39,8 +39,12 @@ const LoginPage = () => {
 
       console.log('로그인 성공:', role);
 
-      // 로그인 후 홈으로 이동
-      nav('/home');
+      // 관리자는 게시판으로, 일반 유저는 홈으로 라우팅
+      if (role == 'ADMIN') {
+        nav('/board');
+      } else {
+        nav('/home');
+      }
     } catch (error) {
       const errorMessage = error.response?.data?.message || '로그인에 실패했습니다.';
       console.error(errorMessage);
