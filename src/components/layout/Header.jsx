@@ -9,6 +9,15 @@ const Header = ({ uploadHandler }) => {
   const isEdit = location.pathname.includes('/edit');
   const isWritePage = location.pathname === '/board/write' || isEdit;
 
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    sessionStorage.removeItem('jwtToken');
+    sessionStorage.removeItem('role');
+    sessionStorage.removeItem('newsList');
+    sessionStorage.removeItem('newsDetail');
+    window.location.href = '/';
+  };
+
   return (
     <div
       className={`min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center z-100`}
@@ -30,7 +39,10 @@ const Header = ({ uploadHandler }) => {
         />
       </div>
       {isHome && (
-        <span className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal">
+        <span
+          onClick={handleLogout}
+          className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal"
+        >
           Logout
         </span>
       )}

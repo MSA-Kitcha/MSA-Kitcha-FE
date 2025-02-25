@@ -33,10 +33,17 @@ const RandomPage = () => {
     setShowMessage(true);
 
     try {
-      const response = await instance.post('/apps/interest_news', { interest: newsData?.interest });
+      const response = await instance.post('/apps/interest_news', {
+        interest: newsData?.interest,
+        keyword: newsData?.keyword,
+      });
       console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
+
+      // sessionStorage에 뉴스 리스트 저장
+      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+
       setTimeout(() => {
-        nav('/news', { state: response.data.result });
+        nav('/news');
       }, 2500);
     } catch (error) {
       const errorMessage =
@@ -79,7 +86,7 @@ const RandomPage = () => {
             RANDOM
           </p>
           <div className="bg-white pt-5 pb-4 px-4 rounded-[10px] shadow-[-2px_-2px_4px_0px_rgba(0,0,0,0.05),2px_2px_4px_0px_rgba(0,0,0,0.05)]">
-            {isLoading ? (
+            {isLoading || !newsData ? (
               <p className="text-[#363636] text-center py-[100px]">랜덤 뉴스를 불러오는 중...</p>
             ) : (
               <>

@@ -1,12 +1,24 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import summary from '@/assets/svgs/common/summary.svg';
 import miniPaperClip from '@/assets/webps/news/mini_paper_clip.webp';
 import solidShare from '@/assets/webps/news/solid_share.webp';
 
 const NewsDetailPage = () => {
   const nav = useNavigate();
-  const location = useLocation();
-  const news = location.state;
+  const [news, setNews] = useState(null);
+
+  // sessionStorage에서 뉴스 상세 정보 불러오기
+  useEffect(() => {
+    const storedNews = sessionStorage.getItem('newsDetail');
+    if (storedNews) {
+      setNews(JSON.parse(storedNews));
+    }
+  }, []);
+
+  if (!news) {
+    return <p className="flex mt-8 justify-center items-center text-center">로딩 중...</p>;
+  }
 
   return (
     <div className="px-[30px] py-7 bg-[white] tracking-normal">

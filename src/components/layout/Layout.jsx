@@ -1,6 +1,7 @@
-import Header from '@/components/layout/Header';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import Header from '@/components/layout/Header';
+
 
 const Layout = () => {
   // WritePage - 업로드 버튼 onClick 핸들러
