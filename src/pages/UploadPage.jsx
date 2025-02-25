@@ -59,8 +59,11 @@ const UploadPage = () => {
 
       console.log('파일 업로드 성공:', response.data.result);
 
+      // sessionStorage에 뉴스 리스트 저장
+      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+
       setTimeout(() => {
-        nav('/news', { state: response.data.result });
+        nav('/news');
       }, 3500);
     } catch (error) {
       const errorMessage = error.response?.data?.message || '파일 업로드에 실패했습니다.';

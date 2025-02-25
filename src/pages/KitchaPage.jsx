@@ -11,7 +11,10 @@ const KitchaPage = () => {
       const response = await instance.get('/apps/mypick');
       console.log('관심사 뉴스 받기 성공:', response.data.result);
 
-      nav('/news', { state: response.data.result });
+      // 뉴스 데이터를 sessionStorage에 저장
+      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+
+      nav('/news');
     } catch (error) {
       const errorMessage = error.response?.data?.message || '관심사 뉴스 받기에 실패했습니다.';
       console.error('관심사 뉴스 받기 오류:', errorMessage);
