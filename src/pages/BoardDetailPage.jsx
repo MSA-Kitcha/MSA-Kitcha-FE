@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import instance from '@/apis/instance';
+import Modal from '@/components/ui/Modal';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 import summary from '@/assets/svgs/common/summary.svg';
 import pencil from '@/assets/svgs/board/pencil.svg';
 import trash from '@/assets/svgs/board/trash.svg';
-import paper_clip from '@/assets/webps/board/paper_clip.webp'
+import paper_clip from '@/assets/webps/board/paper_clip.webp';
 import download from '@/assets/svgs/board/download.svg';
-import instance from "@/apis/instance";
-import Modal from '@/components/ui/Modal';
-import ConfirmModal from '@/components/ui/ConfirmModal';
 
 const BoardDetailPage = () => {
   const [board, setBoard] = useState({});
   const { boardId } = useParams();
   const nav = useNavigate();
   const errorMessage = '요청을 처리하는 데 실패하였습니다.';
-  
+
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -43,8 +43,8 @@ const BoardDetailPage = () => {
       return;
     }
 
-    nav(`/board/edit/${boardId}`)
-  }
+    nav(`/board/edit/${boardId}`);
+  };
 
   const deleteHandler = async () => {
     if (!board.owner && !board.admin) {
@@ -53,11 +53,12 @@ const BoardDetailPage = () => {
     }
 
     try {
-      const res = await instance.delete(`/apps/board/${boardId}`
+      const res = await instance.delete(
+        `/apps/board/${boardId}`,
         // 테스트 데이터
-        , {headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' }}
+        { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' } }
       );
-  
+
       if (res.status === 200) {
         nav('/board');
       }
@@ -65,39 +66,40 @@ const BoardDetailPage = () => {
       console.log('BoardDetail - deleteHandler() ::: ', error);
       openModal(errorMessage);
     }
-  }
+  };
 
   const downloadHandler = async () => {
     try {
       const res = await instance.get(`/apps/board/${boardId}/download`, {
-        responseType: 'blob'
+        responseType: 'blob',
       });
-  
+
       if (res.data.size === 0) {
         throw new Error('파일 내용이 비어 있습니다.');
       }
-  
+
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', `${board.board_title}.pdf`);
       document.body.appendChild(link);
       link.click();
-  
+
       document.body.removeChild(link);
     } catch (error) {
       console.log('BoardDetail - downloadHandler() :: ', error);
       openModal(errorMessage);
     }
-  }
+  };
 
   const fetchBoardData = async () => {
     try {
-      const res = await instance.get(`/apps/board/${boardId}`
+      const res = await instance.get(
+        `/apps/board/${boardId}`,
         // 테스트 데이터
-        , {headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' }}
+        { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' } }
       );
-  
+
       if (res.data) {
         setBoard(res.data);
       }
@@ -114,13 +116,20 @@ const BoardDetailPage = () => {
   return (
     <>
       <Modal isOpen={isModalOpen} message={modalMessage} onClose={closeModal} />
-      <ConfirmModal isOpen={isConfirmModalOpen} message={modalMessage} onClose={closeConfirmModal} onConfirm={deleteHandler} />
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        message={modalMessage}
+        onClose={closeConfirmModal}
+        onConfirm={deleteHandler}
+      />
       <div className="mx-[30px] mt-5 mb-[50px] tracking-normal">
         <div className="flex justify-between">
           <span className="text-xs text-[#BC56F3]">{board.writer}</span>
           <div className="flex space-x-[10px]">
             <span className="text-[10px] text-[#919191]">조회수 {board.hit_cnt}</span>
-            <span className="text-[10px] text-[#2E2E2E] mr-[6px]">{board?.board_date?.split("T")[0]}</span>
+            <span className="text-[10px] text-[#2E2E2E] mr-[6px]">
+              {board?.board_date?.split('T')[0]}
+            </span>
           </div>
         </div>
         <h1 className="mt-[2px] text-lg font-bold">{board.board_title}</h1>
@@ -128,20 +137,20 @@ const BoardDetailPage = () => {
         <div className="flex justify-between items-center px-1 mt-[6px]">
           <div className="flex space-x-4">
             {board.owner && (
-                <>
-                  <img src={pencil} className="w-4 h-4 cursor-pointer" onClick={editHandler} />
-                  <img src={trash} className="w-4 h-4 cursor-pointer" onClick={deleteConfirmHandler} />
-                </>
+              <>
+                <img src={pencil} className="w-4 h-4 cursor-pointer" onClick={editHandler} />
+                <img
+                  src={trash}
+                  className="w-4 h-4 cursor-pointer"
+                  onClick={deleteConfirmHandler}
+                />
+              </>
             )}
           </div>
           {!board.admin && (
             <div className="flex space-x-1">
               <span className="text-[10px] text-[#BC56F3]">원문 보기</span>
-              <a
-                href={board.news_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={board.news_url} target="_blank" rel="noopener noreferrer">
                 <img src={paper_clip} className="w-5 h-5 mr-3" />
               </a>
               <span className="text-[10px] text-[#BC56F3]">요약본 다운</span>

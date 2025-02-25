@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import summary from '@/assets/svgs/common/summary.svg';
 import miniPaperClip from '@/assets/webps/news/mini_paper_clip.webp';
 import solidShare from '@/assets/webps/news/solid_share.webp';
-import { useEffect, useState } from 'react';
 
 const NewsDetailPage = () => {
   const nav = useNavigate();

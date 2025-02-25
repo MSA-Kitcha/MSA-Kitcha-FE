@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import summary from '@/assets/svgs/common/summary.svg';
-import { useEffect, useState } from 'react';
 
 const NewsListPage = () => {
   const nav = useNavigate();

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom';
-import summary from '@/assets/svgs/common/summary.svg';
-import Modal from '@/components/ui/Modal';
 import instance from '@/apis/instance';
+import Modal from '@/components/ui/Modal';
+import summary from '@/assets/svgs/common/summary.svg';
 
 const WritePage = () => {
   // Layout에서 전달된 핸들러 설정 함수
@@ -26,9 +26,10 @@ const WritePage = () => {
   const fetchBoardData = async () => {
     if (isEdit) {
       try {
-        const res = await instance.get(`/apps/board/${boardId}`
+        const res = await instance.get(
+          `/apps/board/${boardId}`,
           // 테스트 데이터
-          ,{headers: { 'X-USER-ID': boardId, 'X-User-Role': 'owner'}}
+          { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'owner' } }
         );
         setBoard({
           board_id: res.data.board_id,
@@ -36,33 +37,34 @@ const WritePage = () => {
           content: res.data.content,
           long_summary: res.data.long_summary,
           news_url: res.data.news_url,
-          owner: res.data.owner
+          owner: res.data.owner,
         });
       } catch (error) {
+        console.log('Write - fetchBoardData() ::: ', error);
         openModal('요청을 처리하는 데 실패하였습니다.');
       }
     } else {
-      setBoard({    
+      setBoard({
         board_id: null,
         board_title: '',
         content: '',
         long_summary: news?.long_summary || '',
         news_url: news?.news_url || '',
-        owner: false
+        owner: false,
       });
     }
-  }
+  };
 
   useEffect(() => {
     fetchBoardData();
   }, [isEdit, boardId]);
 
   const uploadHandler = async () => {
-    if(!board.board_title.trim()) {
+    if (!board.board_title.trim()) {
       openModal('제목을 입력해주세요.');
       return;
     }
-    
+
     if (!board.content.trim()) {
       openModal('내용을 입력해주세요.');
       return;
@@ -76,14 +78,16 @@ const WritePage = () => {
 
       // 수정
       if (isEdit && board.owner) {
-        await instance.put(`/apps/board/${boardId}`, {
-          board_title: board.board_title,
-          content: board.content,
-        }
-        // 테스트 데이터
-        , {headers: {'X-User-Id' : boardId}}
+        await instance.put(
+          `/apps/board/${boardId}`,
+          {
+            board_title: board.board_title,
+            content: board.content,
+          },
+          // 테스트 데이터
+          { headers: { 'X-User-Id': boardId } }
         );
-        
+
         nav(`/board/${boardId}`);
       } else {
         // 작성
@@ -94,14 +98,14 @@ const WritePage = () => {
           news_title: news.news_title,
           summary: board.long_summary,
           url: board.news_url,
-        }
+        };
 
         // 테스트 변수
         const config = {
           headers: {
             'X-User-Id': 1,
-            'X-User-Nickname': 'kitcha'
-          }
+            'X-User-Nickname': 'kitcha',
+          },
         };
 
         const res = await instance.post('/apps/board', param, config);
@@ -154,7 +158,7 @@ const WritePage = () => {
             onChange={(e) => onChangeHandler('board_title', e.target.value)}
             onInput={handleResize} // 입력 시 자동으로 크기 조정
             className="board-title font-nanum font-bold w-full px-[5px] outline-none resize-none"
-            style={{ minHeight: '27px', overflow: 'hidden' }}  // 스타일 추가
+            style={{ minHeight: '27px', overflow: 'hidden' }} // 스타일 추가
           />
           <div className="h-[1px] w-full transition-colors bg-[#B1B1B1]" />
         </div>
