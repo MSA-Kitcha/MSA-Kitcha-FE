@@ -33,7 +33,10 @@ const RandomPage = () => {
     setShowMessage(true);
 
     try {
-      const response = await instance.post('/apps/interest_news', { interest: newsData?.interest });
+      const response = await instance.post('/apps/interest_news', {
+        interest: newsData?.interest,
+        keyword: newsData?.keyword,
+      });
       console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
       setTimeout(() => {
         nav('/news', { state: response.data.result });
