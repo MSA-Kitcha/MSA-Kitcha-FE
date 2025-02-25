@@ -48,7 +48,6 @@ const LoginPage = () => {
       // sessionStorage에 저장
       sessionStorage.setItem('jwtToken', token);
       sessionStorage.setItem('role', role);
-      // sessionStorage.setItem('interest', interest);
       sessionStorage.setItem('keyword', interest);
 
       console.log('로그인 성공:', role);

@@ -27,14 +27,14 @@ const NewsListPage = () => {
               nav(`/news/${index}`);
             }}
           >
-            <h2 className="text-base font-medium">{decodeHtml(news.news_title || '')}</h2>
+            <h2 className="text-base font-medium">{news.news_title || ''}</h2>
             <div className="flex items-center space-x-1 py-1">
               <img src={summary} className="w-[14px]" />
               <p className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#484848]">
-                {decodeHtml(news?.short_summary || '')}
+                {news?.short_summary || ''}
               </p>
             </div>
-            <time className="flex justify-end text-[10px] text-[#696969]">{decodeHtml(news?.news_date || '')}</time>
+            <time className="flex justify-end text-[10px] text-[#696969]">{news?.news_date || ''}</time>
           </div>
         ))
       ) : (
