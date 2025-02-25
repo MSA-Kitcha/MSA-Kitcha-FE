@@ -27,7 +27,7 @@ const WritePage = () => {
     if (isEdit) {
       try {
         const res = await instance.get(
-          `/apps/board/${boardId}`,
+          `/board/apps/board/${boardId}`,
           // 테스트 데이터
           { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'owner' } }
         );
@@ -79,7 +79,7 @@ const WritePage = () => {
       // 수정
       if (isEdit && board.owner) {
         await instance.put(
-          `/apps/board/${boardId}`,
+          `/board/apps/board/${boardId}`,
           {
             board_title: board.board_title,
             content: board.content,
@@ -108,7 +108,7 @@ const WritePage = () => {
           },
         };
 
-        const res = await instance.post('/apps/board', param, config);
+        const res = await instance.post('/board/apps/board', param, config);
 
         nav(`/board/${res.data.board_id}`);
       }

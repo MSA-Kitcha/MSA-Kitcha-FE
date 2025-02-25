@@ -54,7 +54,7 @@ const BoardDetailPage = () => {
 
     try {
       const res = await instance.delete(
-        `/apps/board/${boardId}`,
+        `/board/apps/board/${boardId}`,
         // 테스트 데이터
         { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' } }
       );
@@ -70,7 +70,7 @@ const BoardDetailPage = () => {
 
   const downloadHandler = async () => {
     try {
-      const res = await instance.get(`/apps/board/${boardId}/download`, {
+      const res = await instance.get(`/board/apps/board/${boardId}/download`, {
         responseType: 'blob',
       });
 
@@ -95,7 +95,7 @@ const BoardDetailPage = () => {
   const fetchBoardData = async () => {
     try {
       const res = await instance.get(
-        `/apps/board/${boardId}`,
+        `/board/apps/board/${boardId}`,
         // 테스트 데이터
         { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'USER' } }
       );

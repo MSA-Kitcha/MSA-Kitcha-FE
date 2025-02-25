@@ -12,7 +12,7 @@ const MyPickPage = () => {
 
   const handlePickBtnClick = async () => {
     try {
-      const response = await instance.post('/users/interest', {
+      const response = await instance.post('/authentication/users/interest', {
         interest: selectedKeyword,
       });
 

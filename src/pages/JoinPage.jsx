@@ -32,7 +32,7 @@ const JoinPage = () => {
     setNicknameAlert('');
 
     try {
-      await instance.get(`/users?nickname=${nickname}`);
+      await instance.get(`/authentication/users?nickname=${nickname}`);
       setNicknameAlert('사용할 수 있는 닉네임입니다.');
       setIsNicknameValid(true);
     } catch (error) {
@@ -70,7 +70,7 @@ const JoinPage = () => {
     setEmailAlert('');
 
     try {
-      await instance.get(`/users?email=${email}`);
+      await instance.get(`/authentication/users?email=${email}`);
       setEmailAlert('사용할 수 있는 이메일입니다.');
       setIsEmailValid(true);
     } catch (error) {
@@ -112,7 +112,7 @@ const JoinPage = () => {
   // 회원가입 요청 ('다음' 버튼 클릭)
   const handleNextBtnClick = async () => {
     try {
-      const response = await instance.post('/users/sign-up', {
+      const response = await instance.post('/authentication/users/sign-up', {
         nickname,
         email,
         password,

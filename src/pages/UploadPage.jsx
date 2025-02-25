@@ -53,7 +53,7 @@ const UploadPage = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await instance.post('/apps/upload', formData, {
+      const response = await instance.post('/article/apps/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
