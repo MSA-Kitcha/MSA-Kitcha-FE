@@ -7,6 +7,7 @@ import paper_clip from '@/assets/webps/board/paper_clip.webp'
 import download from '@/assets/svgs/board/download.svg';
 import instance from "@/apis/instance";
 import Modal from '@/components/ui/Modal';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 
 const BoardDetailPage = () => {
   const [board, setBoard] = useState({});
@@ -16,10 +17,24 @@ const BoardDetailPage = () => {
   
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  // alert
   const closeModal = () => setIsModalOpen(false);
   const openModal = (message) => {
     setModalMessage(message);
     setIsModalOpen(true);
+  };
+
+  // confirm
+  const closeConfirmModal = () => setIsConfirmModalOpen(false);
+  const openConfirmModal = (message) => {
+    setModalMessage(message);
+    setIsConfirmModalOpen(true);
+  };
+
+  const deleteConfirmHandler = () => {
+    openConfirmModal('정말 삭제하시겠습니까?', true);
   };
 
   const editHandler = () => {
@@ -99,6 +114,7 @@ const BoardDetailPage = () => {
   return (
     <>
       <Modal isOpen={isModalOpen} message={modalMessage} onClose={closeModal} />
+      <ConfirmModal isOpen={isConfirmModalOpen} message={modalMessage} onClose={closeConfirmModal} onConfirm={deleteHandler} />
       <div className="mx-[30px] mt-5 mb-[50px] tracking-normal">
         <div className="flex justify-between">
           <span className="text-xs text-[#BC56F3]">{board.writer}</span>
@@ -114,7 +130,7 @@ const BoardDetailPage = () => {
             {board.owner && (
                 <>
                   <img src={pencil} className="w-4 h-4 cursor-pointer" onClick={editHandler} />
-                  <img src={trash} className="w-4 h-4 cursor-pointer" onClick={deleteHandler} />
+                  <img src={trash} className="w-4 h-4 cursor-pointer" onClick={deleteConfirmHandler} />
                 </>
             )}
           </div>
@@ -134,7 +150,7 @@ const BoardDetailPage = () => {
           )}
           {board.admin && (
             <div className="ml-auto">
-              <img src={trash} className="w-4 h-4 cursor-pointer" onClick={deleteHandler} />
+              <img src={trash} className="w-4 h-4 cursor-pointer" onClick={deleteConfirmHandler} />
             </div>
           )}
         </div>

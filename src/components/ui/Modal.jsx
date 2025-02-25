@@ -4,7 +4,7 @@ const Modal = ({ isOpen, message, onClose }) => {
   return (
     <div
       onClick={onClose}
-      className="fixed min-h-screen top-0 min-w-[360px] w-full max-w-[440px] flex items-center justify-center bg-black/40 z-150"
+      className="fixed min-h-screen top-0 min-w-[360px] w-full max-w-[440px] flex items-center justify-center bg-black/40 z-150 left-1/2 -translate-x-1/2"
     >
       <div className="font-nanum flex justify-center flex-col items-center bg-white p-5 rounded-[20px] shadow-lg w-80">
         <p className="mt-6 text-center text-[16px]">{message}</p>
