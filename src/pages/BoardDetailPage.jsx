@@ -174,6 +174,12 @@ const BoardDetailPage = () => {
         <p className="w-full font-normal mt-7 bg-[#FBF4FF] rounded-[10px] p-4 text-sm whitespace-pre-line leading-relaxed">
           {board.content}
         </p>
+        <button
+          onClick={() => nav('/board')}
+          className="cursor-pointer font-bold mt-[32px] mb-[14px] w-[80px] py-2 flex justify-center items-center bg-[#BC56F3] text-white rounded-lg"
+        >
+          목록
+        </button>
       </div>
     </>
   );
