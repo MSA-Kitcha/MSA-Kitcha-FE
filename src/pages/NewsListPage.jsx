@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import summary from '@/assets/svgs/common/summary.svg';
+import decodeHtml from '@/utils/decodeHtml';
 
 const NewsListPage = () => {
   const nav = useNavigate();
@@ -17,23 +18,23 @@ const NewsListPage = () => {
   return (
     <div className="p-8 space-y-4 bg-[white]">
       {news.length > 0 ? (
-        news.map((item, index) => (
+        news.map((news, index) => (
           <div
             key={index}
             className="transition duration-300 hover:bg-linear-[180deg,#FDF8FF_97%,#E6E6E6_100%] bg-linear-[180deg,#FFFFFF_97%,#E6E6E6_100%] shadow-md rounded-2xl py-3 px-6 border border-gray-200 cursor-pointer"
             onClick={() => {
-              sessionStorage.setItem('newsDetail', JSON.stringify(item));
+              sessionStorage.setItem('newsDetail', JSON.stringify(news));
               nav(`/news/${index}`);
             }}
           >
-            <h2 className="text-base font-medium">{news.news_title}</h2>
+            <h2 className="text-base font-medium">{decodeHtml(news.news_title || '')}</h2>
             <div className="flex items-center space-x-1 py-1">
               <img src={summary} className="w-[14px]" />
               <p className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#484848]">
-                {news.short_summary}
+                {decodeHtml(news?.short_summary || '')}
               </p>
             </div>
-            <time className="flex justify-end text-[10px] text-[#696969]">{news.news_date}</time>
+            <time className="flex justify-end text-[10px] text-[#696969]">{decodeHtml(news?.news_date || '')}</time>
           </div>
         ))
       ) : (

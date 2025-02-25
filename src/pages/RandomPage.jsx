@@ -5,6 +5,7 @@ import deco from '@/assets/webps/common/deco.webp';
 import summary from '@/assets/svgs/common/summary.svg';
 import heart from '@/assets/webps/random/heart.webp';
 import bad from '@/assets/webps/random/bad.webp';
+import decodeHtml from '@/utils/decodeHtml';
 
 const RandomPage = () => {
   const nav = useNavigate();
@@ -18,8 +19,8 @@ const RandomPage = () => {
     setIsLoading(true);
     try {
       const response = await instance.get('/article/apps/random');
-      console.log('랜덤 뉴스 받기 성공:', response.data.result);
-      setNewsData(response.data.result);
+      console.log('랜덤 뉴스 받기 성공:', response.data);
+      setNewsData(response.data);
     } catch (error) {
       const errorMessage = error.response?.data?.message || '랜덤 뉴스 받기에 실패했습니다.';
       console.error('랜덤 뉴스 받기 오류:', errorMessage);
@@ -39,8 +40,19 @@ const RandomPage = () => {
       });
       console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
 
+      const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+      };
+
+            // 뉴스 데이터의 날짜 변환 후 저장
+      const formattedNewsList = response.data.result.map(news => ({
+        ...news,
+        news_date: formatDate(news.news_date) // 기존 날짜 필드를 변환 (필드명이 `date`라고 가정)
+      }));
+
       // sessionStorage에 뉴스 리스트 저장
-      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+      sessionStorage.setItem('newsList', JSON.stringify(formattedNewsList));
 
       setTimeout(() => {
         nav('/news');
@@ -91,7 +103,7 @@ const RandomPage = () => {
             ) : (
               <>
                 <h4 className="text-[#363636] text-[16px] tracking-normal font-bold leading-[24px] mb-3">
-                  {newsData?.news_title}
+                  {decodeHtml(newsData?.news_title || '')}
                 </h4>
                 <div className="relative py-4 pl-8 pr-[18px] bg-white rounded-[10px] shadow-[-2px_-2px_4px_0px_rgba(0,0,0,0.05),2px_2px_4px_0px_rgba(0,0,0,0.05)]">
                   <img
@@ -100,7 +112,7 @@ const RandomPage = () => {
                     alt="summary"
                   />
                   <div className="whitespace-pre-wrap text-[#363636] text-[12px] leading-[19px] tracking-normal">
-                    {newsData?.long_summary}
+                    {decodeHtml(newsData?.long_summary || '')} 
                   </div>
                 </div>
               </>

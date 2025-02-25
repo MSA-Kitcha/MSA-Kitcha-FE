@@ -15,6 +15,7 @@ const Header = ({ uploadHandler }) => {
     sessionStorage.removeItem('role');
     sessionStorage.removeItem('newsList');
     sessionStorage.removeItem('newsDetail');
+    sessionStorage.removeItem('keyword');
     window.location.href = '/';
   };
 

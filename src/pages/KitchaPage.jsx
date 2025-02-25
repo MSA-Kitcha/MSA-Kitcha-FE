@@ -5,14 +5,27 @@ import gatcha from '@/assets/webps/kitcha/gatcha.webp';
 
 const KitchaPage = () => {
   const nav = useNavigate();
+  const keyword = sessionStorage.getItem('keyword');
 
   const handleMyPickClick = async () => {
     try {
-      const response = await instance.get('/article/apps/mypick');
-      console.log('관심사 뉴스 받기 성공:', response.data.result);
-
-      // 뉴스 데이터를 sessionStorage에 저장
-      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+      const response = await instance.get(`/article/apps/mypick?keyword=${keyword}`);
+      console.log('관심사 뉴스 받기 성공:', response.data);
+      
+      // 날짜 변환 함수
+      const formatDate = (dateStr) => {
+          const date = new Date(dateStr);
+          return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+      };
+      
+      // 뉴스 데이터의 날짜 변환 후 저장
+      const formattedNewsList = response.data.map(news => ({
+          ...news,
+          news_date: formatDate(news.news_date) // 기존 날짜 필드를 변환 (필드명이 `date`라고 가정)
+      }));
+      
+      // 변환된 데이터를 sessionStorage에 저장
+      sessionStorage.setItem('newsList', JSON.stringify(formattedNewsList));      
 
       nav('/news');
     } catch (error) {
