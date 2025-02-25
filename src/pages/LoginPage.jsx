@@ -40,7 +40,7 @@ const LoginPage = () => {
       const response = await instance.post('/authentication/users/login', { email, password });
 
       // JWT 토큰 헤더에서 가져오기
-      const token = response.headers['Authorization']?.split(' ')[1];
+      const token = response.headers['authorization'];
       if (!token) throw new Error('토큰이 없습니다.');
 
       const { role } = response.data;
