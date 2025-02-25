@@ -43,14 +43,16 @@ const LoginPage = () => {
       const token = response.headers['authorization'];
       if (!token) throw new Error('토큰이 없습니다.');
 
-      const { role } = response.data;
+      const { role, interest } = response.data;
 
       // sessionStorage에 저장
       sessionStorage.setItem('jwtToken', token);
       sessionStorage.setItem('role', role);
+      // sessionStorage.setItem('interest', interest);
+      sessionStorage.setItem('keyword', interest);
 
       console.log('로그인 성공:', role);
-
+      
       // 관리자는 게시판으로, 일반 유저는 홈으로 라우팅
       if (role == 'ADMIN') {
         nav('/board');

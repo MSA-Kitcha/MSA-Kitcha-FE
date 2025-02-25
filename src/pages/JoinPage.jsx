@@ -32,7 +32,7 @@ const JoinPage = () => {
     setNicknameAlert('');
 
     try {
-      await instance.get(`/authentication/users?nickname=${nickname}`);
+      await instance.get(`/authentication/users/nickname-check?nickname=${nickname}`);
       setNicknameAlert('사용할 수 있는 닉네임입니다.');
       setIsNicknameValid(true);
     } catch (error) {
@@ -70,7 +70,7 @@ const JoinPage = () => {
     setEmailAlert('');
 
     try {
-      await instance.get(`/authentication/users?email=${email}`);
+      await instance.get(`/authentication/users/email-check?email=${email}`);
       setEmailAlert('사용할 수 있는 이메일입니다.');
       setIsEmailValid(true);
     } catch (error) {
@@ -118,7 +118,17 @@ const JoinPage = () => {
         password,
       });
 
+      // JWT 토큰 헤더에서 가져오기
+      const token = response.headers['authorization'];
+      if (!token) throw new Error('토큰이 없습니다.');
+
+      const { role } = response.data;
+
       console.log('회원가입 성공:', response.data.message);
+      // sessionStorage에 저장
+      sessionStorage.setItem('jwtToken', token);
+      sessionStorage.setItem('role', role);
+      
       nav('/mypick');
     } catch (error) {
       const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';

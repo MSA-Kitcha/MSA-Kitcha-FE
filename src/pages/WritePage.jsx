@@ -27,9 +27,9 @@ const WritePage = () => {
     if (isEdit) {
       try {
         const res = await instance.get(
-          `/board/apps/board/${boardId}`,
+          `/board/apps/board/${boardId}`
           // 테스트 데이터
-          { headers: { 'X-USER-ID': boardId, 'X-User-Role': 'owner' } }
+          // ,{ headers: { 'X-USER-ID': boardId, 'X-User-Role': 'owner' } }
         );
         setBoard({
           board_id: res.data.board_id,
@@ -85,7 +85,7 @@ const WritePage = () => {
             content: board.content,
           },
           // 테스트 데이터
-          { headers: { 'X-User-Id': boardId } }
+          // { headers: { 'X-User-Id': boardId } }
         );
 
         nav(`/board/${boardId}`);
@@ -108,7 +108,7 @@ const WritePage = () => {
           },
         };
 
-        const res = await instance.post('/board/apps/board', param, config);
+        const res = await instance.post('/board/apps/board', param);
 
         nav(`/board/${res.data.board_id}`);
       }

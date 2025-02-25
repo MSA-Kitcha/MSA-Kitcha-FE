@@ -11,11 +11,13 @@ const MyPickPage = () => {
   const fromHome = location.state?.fromHome || false;
 
   const handlePickBtnClick = async () => {
+    console.log(selectedKeyword);
     try {
       const response = await instance.post('/authentication/users/interest', {
         interest: selectedKeyword,
       });
 
+      sessionStorage.setItem('keyword', selectedKeyword);
       console.log('관심사 설정 성공:', response.data.message);
       nav('/home');
     } catch (error) {

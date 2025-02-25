@@ -57,10 +57,20 @@ const UploadPage = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      console.log('파일 업로드 성공:', response.data.result);
+      console.log('파일 업로드 성공:', response.data);
 
+      const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+      };
+      
+      // 뉴스 데이터의 날짜 변환 후 저장
+      const formattedNewsList = response.data.map(news => ({
+          ...news,
+          news_date: formatDate(news.news_date) // 기존 날짜 필드를 변환 (필드명이 `date`라고 가정)
+      }));
       // sessionStorage에 뉴스 리스트 저장
-      sessionStorage.setItem('newsList', JSON.stringify(response.data.result));
+      sessionStorage.setItem('newsList', JSON.stringify(formattedNewsList));
 
       setTimeout(() => {
         nav('/news');
