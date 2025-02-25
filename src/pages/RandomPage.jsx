@@ -17,7 +17,7 @@ const RandomPage = () => {
   const fetchRandomNews = async () => {
     setIsLoading(true);
     try {
-      const response = await instance.get('/apps/random');
+      const response = await instance.get('/article/apps/random');
       console.log('랜덤 뉴스 받기 성공:', response.data.result);
       setNewsData(response.data.result);
     } catch (error) {
@@ -33,7 +33,7 @@ const RandomPage = () => {
     setShowMessage(true);
 
     try {
-      const response = await instance.post('/apps/interest_news', {
+      const response = await instance.post('/article/apps/interest_news', {
         interest: newsData?.interest,
         keyword: newsData?.keyword,
       });

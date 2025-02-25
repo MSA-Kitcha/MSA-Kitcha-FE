@@ -37,10 +37,10 @@ const LoginPage = () => {
   // 로그인
   const handleLogin = async () => {
     try {
-      const response = await instance.post('/users/login', { email, password });
+      const response = await instance.post('/authentication/users/login', { email, password });
 
       // JWT 토큰 헤더에서 가져오기
-      const token = response.headers['authorization']?.split(' ')[1];
+      const token = response.headers['Authorization']?.split(' ')[1];
       if (!token) throw new Error('토큰이 없습니다.');
 
       const { role } = response.data;

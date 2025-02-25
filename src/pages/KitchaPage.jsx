@@ -8,7 +8,7 @@ const KitchaPage = () => {
 
   const handleMyPickClick = async () => {
     try {
-      const response = await instance.get('/apps/mypick');
+      const response = await instance.get('/article/apps/mypick');
       console.log('관심사 뉴스 받기 성공:', response.data.result);
 
       // 뉴스 데이터를 sessionStorage에 저장

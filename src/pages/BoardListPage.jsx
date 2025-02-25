@@ -24,7 +24,7 @@ const BoardListPage = () => {
     setIsLoading(true);
 
     try {
-      const res = await instance.get(`/apps/board?page=${page}&size=10`);
+      const res = await instance.get(`/board/apps/board?page=${page}&size=10`);
 
       if (res.data) {
         if (res.data.length === 0) {
