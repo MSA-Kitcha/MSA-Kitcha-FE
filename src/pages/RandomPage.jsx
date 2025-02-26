@@ -13,6 +13,7 @@ const RandomPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
   const [fade, setFade] = useState(false); // 말풍선 서서히 없어지게
+  const [randomNewsInterest, setRandomNewsInterest] = useState();
 
   // random news 가져오기
   const fetchRandomNews = async () => {
@@ -20,8 +21,10 @@ const RandomPage = () => {
     try {
       const response = await instance.get('/article/apps/random');
       console.log('랜덤 뉴스 받기 성공:', response.data);
-      console.log('핵심 키워드 :: ', response.data.keyword)
+
       setNewsData(response.data);
+      // 해당 randomnews의 키워드 저장. 하트 눌렀을 때 sessionStorage에 update
+      setRandomNewsInterest(response.data.interest);
     } catch (error) {
       const errorMessage = error.response?.data?.message || '랜덤 뉴스 받기에 실패했습니다.';
       console.error('랜덤 뉴스 받기 오류:', errorMessage);
@@ -36,7 +39,7 @@ const RandomPage = () => {
 
     try {
       const response = await instance.post('/article/apps/interest_news', {
-        interest: newsData?.interest,
+        interest: randomNewsInterest,
         keyword: newsData?.keyword,
       });
       console.log('관심사 업데이트 및 랜덤 뉴스 받기 성공:', response.data.result);
@@ -46,6 +49,7 @@ const RandomPage = () => {
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       };
 
+      sessionStorage.setItem('keyword', randomNewsInterest);
       // 날짜, 요약 형식 설정
       const formattedNewsList = response.data.result.map(news => ({
         ...news,
