@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import instance from '@/apis/instance';
 import deco from '@/assets/webps/common/deco.webp';
 import gatcha from '@/assets/webps/kitcha/gatcha.webp';
+import decodeHtml from '@/utils/decodeHtml';
 
 const KitchaPage = () => {
   const nav = useNavigate();
@@ -18,10 +19,13 @@ const KitchaPage = () => {
           return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       };
       
-      // 뉴스 데이터의 날짜 변환 후 저장
+      // 날짜, 요약 형식 설정
       const formattedNewsList = response.data.map(news => ({
           ...news,
-          news_date: formatDate(news.news_date) // 기존 날짜 필드를 변환 (필드명이 `date`라고 가정)
+          long_summary: decodeHtml(news.long_summary),
+          news_date: formatDate(news.news_date),
+          news_title: decodeHtml(news.news_title),
+          short_summary: decodeHtml(news.short_summary)
       }));
       
       // 변환된 데이터를 sessionStorage에 저장

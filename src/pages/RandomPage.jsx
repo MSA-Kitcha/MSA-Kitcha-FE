@@ -20,6 +20,7 @@ const RandomPage = () => {
     try {
       const response = await instance.get('/article/apps/random');
       console.log('랜덤 뉴스 받기 성공:', response.data);
+      console.log('핵심 키워드 :: ', response.data.keyword)
       setNewsData(response.data);
     } catch (error) {
       const errorMessage = error.response?.data?.message || '랜덤 뉴스 받기에 실패했습니다.';
@@ -45,10 +46,13 @@ const RandomPage = () => {
         return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       };
 
-            // 뉴스 데이터의 날짜 변환 후 저장
+      // 날짜, 요약 형식 설정
       const formattedNewsList = response.data.result.map(news => ({
         ...news,
-        news_date: formatDate(news.news_date) // 기존 날짜 필드를 변환 (필드명이 `date`라고 가정)
+        long_summary: decodeHtml(news.long_summary),
+        news_date: formatDate(news.news_date),
+        news_title: decodeHtml(news.news_title),
+        short_summary: decodeHtml(news.short_summary)
       }));
 
       // sessionStorage에 뉴스 리스트 저장
