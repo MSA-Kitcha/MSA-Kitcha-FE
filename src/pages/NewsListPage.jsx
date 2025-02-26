@@ -26,7 +26,7 @@ const NewsListPage = () => {
               nav(`/news/${index}`);
             }}
           >
-            <h2 className="text-base font-medium overflow-hidden text-ellipsis whitespace-nowrap">{news.news_title || ''}</h2>
+            <h2 className="text-base font-medium">{news.news_title || ''}</h2>
             <div className="flex items-center space-x-1 py-1">
               <img src={summary} className="w-[14px]" />
               <p className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#484848]">
