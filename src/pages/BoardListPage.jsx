@@ -74,7 +74,7 @@ const BoardListPage = () => {
               className="space-y-3 cursor-pointer"
               onClick={() => nav(`/board/${board.board_id}`)}
             >
-              <h2 className="text-base font-bold px-1">{board.board_title}</h2>
+              <h2 className="text-base font-bold px-1 overflow-hidden text-ellipsis whitespace-nowrap">{board.board_title}</h2>
               <div className="flex justify-between px-1">
                 <span className="text-xs text-[#BC56F3]">{board.writer}</span>
                 <div className="flex space-x-[10px]">
