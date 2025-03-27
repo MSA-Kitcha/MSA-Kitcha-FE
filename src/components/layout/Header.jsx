@@ -19,6 +19,10 @@ const Header = ({ uploadHandler }) => {
     window.location.href = '/';
   };
 
+  const handleMypage = () => {
+    nav('/mypage');
+  };
+
   return (
     <div
       className={`min-w-[360px] max-w-[440px] w-full h-[54px] bg-white fixed top-0 flex items-center z-100`}
@@ -40,11 +44,11 @@ const Header = ({ uploadHandler }) => {
         />
       </div>
       {isHome && (
-        <span
-          onClick={handleLogout}
-          className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal"
-        >
-          Logout
+        <span className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal">
+          <span onClick={handleMypage}>Mypage</span>
+          <span style={{ marginLeft: '10px' }} onClick={handleLogout}>
+            Logout
+          </span>
         </span>
       )}
       {isWritePage && (

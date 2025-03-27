@@ -13,6 +13,7 @@ import BoardListPage from '@/pages/BoardListPage';
 import BoardDetailPage from '@/pages/BoardDetailPage';
 import WritePage from '@/pages/WritePage';
 import NotFoundPage from '@/pages/NotFoundPage';
+import Mypage from './pages/MyPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/board/:boardId" element={<BoardDetailPage />} />
           <Route path="/board/write" element={<WritePage />} />
           <Route path="/board/edit/:boardId" element={<WritePage />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Route>
       </Routes>
     </BrowserRouter>
