@@ -39,6 +39,8 @@ const LoginPage = () => {
     try {
       const response = await instance.post('/authentication/users/login', { email, password });
 
+      console.log('test0401-1');
+
       // JWT 토큰 헤더에서 가져오기
       const token = response.headers['authorization'];
       if (!token) throw new Error('토큰이 없습니다.');
@@ -49,8 +51,6 @@ const LoginPage = () => {
       sessionStorage.setItem('jwtToken', token);
       sessionStorage.setItem('role', role);
       sessionStorage.setItem('keyword', interest);
-      sessionStorage.setItem('email', email);
-      sessionStorage.setItem('nickname', nickname);
 
       console.log('로그인 성공:', role);
 
