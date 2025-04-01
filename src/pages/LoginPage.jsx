@@ -49,9 +49,11 @@ const LoginPage = () => {
       sessionStorage.setItem('jwtToken', token);
       sessionStorage.setItem('role', role);
       sessionStorage.setItem('keyword', interest);
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('nickname', nickname);
 
       console.log('로그인 성공:', role);
-      
+
       // 관리자는 게시판으로, 일반 유저는 홈으로 라우팅
       if (role == 'ADMIN') {
         nav('/board');

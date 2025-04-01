@@ -20,6 +20,11 @@ export default function Mypage() {
 
   // 닉네임 중복 확인
   const checkNicknameDuplicate = async () => {
+    const ex_nickname = sessionStorage.getItem('nickname');
+    if (ex_nickname == nickname) {
+      setNicknameAlert('현재 닉네임과 동일합니다');
+      return;
+    }
     setNicknameAlert('');
 
     try {
@@ -40,26 +45,17 @@ export default function Mypage() {
 
   // '저장' 버튼 (함수 수정해야 됨!!!!!)
   const handleNextBtnClick = async () => {
+    console.log('nickname:', nickname);
     try {
-      const response = await instance.post('/authentication/users/mypage', {
-        nickname,
+      const response = await instance.post('/authentication/users/nickname-change', {
+        nickname: nickname,
       });
-
-      // JWT 토큰 헤더에서 가져오기
-      const token = response.headers['authorization'];
-      if (!token) throw new Error('토큰이 없습니다.');
-
-      const { role } = response.data;
-
-      console.log('회원가입 성공:', response.data.message);
-      // sessionStorage에 저장
-      sessionStorage.setItem('jwtToken', token);
-      sessionStorage.setItem('role', role);
-
-      nav('/mypick');
+      console.log('닉네임 변경 성공:', response.data.message);
+      nav('/home');
     } catch (error) {
-      const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';
-      console.error('회원가입 오류:', errorMessage);
+      const errorMessage = error.response?.data?.message || '닉네임 변경에 실패했습니다.';
+      console.error('닉네임 변경 실패:', errorMessage);
+      //nav('/home');
     }
   };
 

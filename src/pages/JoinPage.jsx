@@ -128,7 +128,11 @@ const JoinPage = () => {
       // sessionStorage에 저장
       sessionStorage.setItem('jwtToken', token);
       sessionStorage.setItem('role', role);
-      
+
+      // 변경한 부분
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('nickname', nickname);
+
       nav('/mypick');
     } catch (error) {
       const errorMessage = error.response?.data?.message || '회원가입에 실패했습니다.';

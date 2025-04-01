@@ -17,6 +17,7 @@ const MyPickPage = () => {
         interest: selectedKeyword,
       });
 
+      console.log(response);
       sessionStorage.setItem('keyword', selectedKeyword);
       console.log('관심사 설정 성공:', response.data.message);
       nav('/home');
