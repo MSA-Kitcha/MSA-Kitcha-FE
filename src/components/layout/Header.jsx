@@ -45,9 +45,7 @@ const Header = ({ uploadHandler }) => {
       </div>
       {isHome && (
         <span className="cursor-pointer ml-auto mr-[30px] text-[12px] text-[#939393] tracking-normal">
-          <span onClick={handleMypage} style={{ color: 'red' }}>
-            Mypage
-          </span>
+          <span onClick={handleMypage}>Mypage</span>
           <span style={{ marginLeft: '10px' }} onClick={handleLogout}>
             Logout
           </span>
